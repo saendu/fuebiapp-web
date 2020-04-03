@@ -117,17 +117,17 @@
         .connection-indicator,
         .indicator {
             position: relative;
-            font-size: 8px;
+            font-size: 20px;
             text-align: center;
             line-height: $thumbnailIndicatorSize;
             padding: 0;
             @include circle($thumbnailIndicatorSize);
             box-sizing: border-box;
             z-index: $zindex3;
-            background: $dominantSpeakerBg;
+            background: red;
             color: $thumbnailPictogramColor;
             border: $thumbnailIndicatorBorder solid $thumbnailPictogramColor;
-
+            
             .indicatoricon {
                 @include absoluteAligning();
             }
@@ -163,6 +163,11 @@
                 cursor: pointer;
                 font-size: 1em;
             }
+        }
+
+        .shots {
+            width: 40px;
+            height: 40px;
         }
 
         .hide-connection-indicator {

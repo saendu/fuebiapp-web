@@ -19,7 +19,7 @@ import { ConnectionIndicator } from '../../../react/features/connection-indicato
 import { DisplayName } from '../../../react/features/display-name';
 import {
     DominantSpeakerIndicator,
-    RaisedHandIndicator,
+    ShotsIndicator,
     StatusIndicators
 } from '../../../react/features/filmstrip';
 import {
@@ -781,8 +781,8 @@ export default class SmallVideo {
                                     participantId = { this.id }
                                     statsPopoverPosition = { statsPopoverPosition } />
                                 : null }
-                            <RaisedHandIndicator
-                                iconSize = { iconSize }
+                            <ShotsIndicator
+                                iconSize = { 20 }
                                 participantId = { this.id }
                                 tooltipPosition = { tooltipPosition } />
                             { this._showDominantSpeaker && participantCount > 2

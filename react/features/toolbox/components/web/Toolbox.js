@@ -18,7 +18,7 @@ import {
     IconInvite,
     IconOpenInNew,
     IconPresentation,
-    IconRaisedHand,
+    IconShots,
     IconRec,
     IconShareDesktop,
     IconShareVideo
@@ -1062,7 +1062,7 @@ class Toolbox extends Component<Props, State> {
                     <OverflowMenuItem
                         accessibilityLabel =
                             { t('toolbar.accessibilityLabel.raiseHand') }
-                        icon = { IconRaisedHand }
+                        icon = { IconShots }
                         key = 'raisedHand'
                         onClick = { this._onToolbarToggleRaiseHand }
                         text = {
@@ -1240,10 +1240,10 @@ class Toolbox extends Component<Props, State> {
                     { buttonsLeft.indexOf('raisehand') !== -1
                         && <ToolbarButton
                             accessibilityLabel = { t('toolbar.accessibilityLabel.raiseHand') }
-                            icon = { IconRaisedHand }
+                            icon = { IconShots }
                             onClick = { this._onToolbarToggleRaiseHand }
                             toggled = { _raisedHand }
-                            tooltip = { t('toolbar.raiseHand') } /> }
+                            tooltip = { t('toolbar.haveShots') } /> }
                     { buttonsLeft.indexOf('chat') !== -1
                         && <div className = 'toolbar-button-with-badge'>
                             <ToolbarButton

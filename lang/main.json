@@ -484,6 +484,7 @@
         "title": "Profile"
     },
     "raisedHand": "Would like to speak",
+    "shots": "We gonna have shots now!",
     "recording": {
         "authDropboxText": "Upload to Dropbox",
         "availableSpace": "Available space: {{spaceLeft}} MB (approximately {{duration}} minutes of recording)",
@@ -659,6 +660,7 @@
         "privateMessage": "Send private message",
         "profile": "Edit your profile",
         "raiseHand": "Raise / Lower your hand",
+        "haveShots": "Have shots now!",
         "raiseYourHand": "Raise your hand",
         "Settings": "Settings",
         "sharedvideo": "Share a YouTube video",

@@ -1,5 +1,4 @@
 // @flow
-
 export { default as AbstractAudioMuteButton } from './AbstractAudioMuteButton';
 export { default as AbstractButton } from './AbstractButton';
 export type { Props as AbstractButtonProps } from './AbstractButton';
