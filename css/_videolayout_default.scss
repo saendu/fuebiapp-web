@@ -127,6 +127,13 @@
             background: red;
             color: $thumbnailPictogramColor;
             border: $thumbnailIndicatorBorder solid $thumbnailPictogramColor;
+            width: 40px;
+            height: 40px;
+
+            svg {
+                width: 20px;
+                height: 20px;
+            }
             
             .indicatoricon {
                 @include absoluteAligning();
@@ -163,11 +170,6 @@
                 cursor: pointer;
                 font-size: 1em;
             }
-        }
-
-        .shots {
-            width: 40px;
-            height: 40px;
         }
 
         .hide-connection-indicator {

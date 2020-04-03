@@ -41,7 +41,7 @@ class ShotsIndicator extends AbstractShotsIndicator<Props> {
     _renderIndicator() {
         return (
             <BaseIndicator
-                className = 'raisehandindicator indicator show-inline shots'
+                className = 'raisehandindicator indicator show-inline'
                 icon = { IconShots }
                 iconClassName = 'indicatoricon'
                 iconSize = { `${this.props.iconSize}px` }

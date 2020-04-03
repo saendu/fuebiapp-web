@@ -782,7 +782,7 @@ export default class SmallVideo {
                                     statsPopoverPosition = { statsPopoverPosition } />
                                 : null }
                             <ShotsIndicator
-                                iconSize = { 20 }
+                                iconSize = { iconSize }
                                 participantId = { this.id }
                                 tooltipPosition = { tooltipPosition } />
                             { this._showDominantSpeaker && participantCount > 2
