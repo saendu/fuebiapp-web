@@ -211,6 +211,7 @@ StateListenerRegistry.register(
                         }));
                         break;
                     case 'raisedHand': {
+                        // TODO hook in here
                         _raiseHandUpdated(
                             store, conference, participant.getId(), newValue);
                         break;
@@ -377,9 +378,11 @@ function _participantJoinedOrUpdated({ dispatch, getState }, next, action) {
  * @returns {void}
  */
 function _raiseHandUpdated({ dispatch, getState }, conference, participantId, newValue) {
+    // TODO Set state to show dialog
+    
     const raisedHand = newValue === 'true';
     const pid = participantId || getLocalParticipant(getState()).id;
-
+    
     dispatch(participantUpdated({
         conference,
         id: pid,

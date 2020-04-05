@@ -20,7 +20,8 @@ import { DisplayName } from '../../../react/features/display-name';
 import {
     DominantSpeakerIndicator,
     ShotsIndicator,
-    StatusIndicators
+    StatusIndicators,
+    ShotsWarning
 } from '../../../react/features/filmstrip';
 import {
     LAYOUTS,
@@ -28,6 +29,7 @@ import {
     setTileView,
     shouldDisplayTileView
 } from '../../../react/features/video-layout';
+
 /* eslint-enable no-unused-vars */
 
 const logger = require('jitsi-meet-logger').getLogger(__filename);
@@ -679,7 +681,8 @@ export default class SmallVideo {
      * Some browsers don't have full support of the object-fit property for the
      * video element and when we set video object-fit to "cover" the video
      * actually overflows the boundaries of its container, so it's important
-     * to indicate that the "overflow" should be hidden.
+      * to indicate that the "overflow" should be hidden.
+
      *
      * Setting this property for all browsers will result in broken audio levels,
      * which makes this a temporary solution, before reworking audio levels.
@@ -765,7 +768,7 @@ export default class SmallVideo {
             statsPopoverPosition = this.statsPopoverLocation;
             tooltipPosition = 'top';
         }
-
+             
         ReactDOM.render(
             <Provider store = { APP.store }>
                 <I18nextProvider i18n = { i18next }>
@@ -781,10 +784,12 @@ export default class SmallVideo {
                                     participantId = { this.id }
                                     statsPopoverPosition = { statsPopoverPosition } />
                                 : null }
-                            <ShotsIndicator
-                                iconSize = { iconSize }
-                                participantId = { this.id }
-                                tooltipPosition = { tooltipPosition } />
+                                <ShotsIndicator
+                                        iconSize = { iconSize }
+                                        participantId = { this.id }
+                                        tooltipPosition = { tooltipPosition } 
+                                />
+                                <ShotsWarning />
                             { this._showDominantSpeaker && participantCount > 2
                                 ? <DominantSpeakerIndicator
                                     iconSize = { iconSize }
