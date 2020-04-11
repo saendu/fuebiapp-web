@@ -10,7 +10,7 @@ export type Props = {
      * The participant participantName who we want to render the raised hand indicator
      * for.
      */
-    _raiseHandParticipantName: string,
+    _shotsEnforcerName: string,
 
     /**
      * True if the hand is raised for this participant.
@@ -60,6 +60,6 @@ export function _mapStateToProps(state: Object, ownProps: Props): Object {
 
     return {
         _someoneRaisedTheHand: raiseHandParticipant ? true : false,
-        _raiseHandParticipantName: displayName
+        _shotsEnforcerName: displayName
     };
 }

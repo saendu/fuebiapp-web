@@ -43,7 +43,7 @@ class ShotsWarning extends AbstractShotsWarning<Props> {
         const Icon = <WarningIcon label="Warning icon" secondaryColor="inherit" />;
         const WarningBanner = ({ isOpen = true }) => (
             <Banner icon={Icon} isOpen={isOpen} appearance="warning">
-              {this.props._raiseHandParticipantName} forced everyone to take a shot!
+              {this.props._shotsEnforcerName} wants to take SHOTS!
             </Banner>
           );
         return (
