@@ -15,13 +15,13 @@
   "author": "",
   "readmeFilename": "README.md",
   "dependencies": {
+    "@atlaskit/banner": "^10.1.7",
     "@atlaskit/button": "10.1.1",
     "@atlaskit/checkbox": "5.0.10",
     "@atlaskit/dropdown-menu": "6.1.25",
     "@atlaskit/field-text": "7.0.19",
     "@atlaskit/field-text-area": "4.0.15",
-    "@atlaskit/flag": "9.1.8",
-    "@atlaskit/icon": "15.0.3",
+    "@atlaskit/icon": "^15.0.3",
     "@atlaskit/inline-dialog": "5.3.0",
     "@atlaskit/inline-message": "7.0.10",
     "@atlaskit/lozenge": "6.2.4",
@@ -95,6 +95,7 @@
     "xmldom": "0.1.27"
   },
   "devDependencies": {
+    "@atlaskit/flag": "^9.1.10",
     "@babel/core": "7.5.5",
     "@babel/plugin-proposal-class-properties": "7.1.0",
     "@babel/plugin-proposal-export-default-from": "7.0.0",
@@ -142,9 +143,6 @@
     "postinstall": "jetify",
     "validate": "npm ls"
   },
-  "pre-commit": [
-    "lint"
-  ],
   "browser": {
     "jQuery-Impromptu": "jQuery-Impromptu/src/jquery-impromptu.js"
   }

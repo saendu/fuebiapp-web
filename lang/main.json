@@ -486,6 +486,7 @@
         "title": "Profile"
     },
     "raisedHand": "Would like to speak",
+    "shots": "We gonna have shots now!",
     "recording": {
         "authDropboxText": "Upload to Dropbox",
         "availableSpace": "Available space: {{spaceLeft}} MB (approximately {{duration}} minutes of recording)",
@@ -661,6 +662,7 @@
         "privateMessage": "Send private message",
         "profile": "Edit your profile",
         "raiseHand": "Raise / Lower your hand",
+        "haveShots": "Have shots now!",
         "raiseYourHand": "Raise your hand",
         "Settings": "Settings",
         "sharedvideo": "Share a YouTube video",
@@ -751,7 +753,7 @@
             "join": "Tap to join",
             "roomname": "Enter room name"
         },
-        "appDescription": "Go ahead, video chat with the whole team. In fact, invite everyone you know. {{app}} is a fully encrypted, 100% open source video conferencing solution that you can use all day, every day, for free — with no account needed.",
+        "appDescription": "Go ahead, have a remote beer with your friends. In fact, invite everyone you know. {{app}} is a fully encrypted, 100% open source video conferencing solution that you can use all day, every day, for free — with no account needed.",
         "audioVideoSwitch": {
             "audio": "Voice",
             "video": "Video"
@@ -775,7 +777,7 @@
         "roomnameHint": "Enter the name or URL of the room you want to join. You may make a name up, just let the people you are meeting know it so that they enter the same name.",
         "sendFeedback": "Send feedback",
         "terms": "Terms",
-        "title": "Secure, fully featured, and completely free video conferencing"
+        "title": "Secure way to have a beer with your friends during COVID-19"
     },
     "lonelyMeetingExperience": {
         "button": "Invite others",

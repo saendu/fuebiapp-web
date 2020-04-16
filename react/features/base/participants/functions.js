@@ -173,7 +173,7 @@ export function getParticipantDisplayName(
 
     return typeof interfaceConfig === 'object'
         ? interfaceConfig.DEFAULT_REMOTE_DISPLAY_NAME
-        : 'Fellow Jitster';
+        : 'Beer Mate';
 }
 
 /**
@@ -375,4 +375,17 @@ async function _getFirstLoadableAvatarUrl(participant) {
     }
 
     return undefined;
+}
+
+export function getRaiseHandParticipant(stateful: Object | Function) {
+    const participants = _getAllParticipants(stateful);
+
+    let raiseHandParticipant = null; 
+    participants.forEach(p => {
+        if (p.hasOwnProperty('raisedHand')) {
+            if(p.raisedHand === true) raiseHandParticipant = p; 
+        }
+    });
+
+    return raiseHandParticipant;
 }

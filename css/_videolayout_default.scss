@@ -75,6 +75,11 @@
             float: left;
             pointer-events: all;
         }
+
+        .ShotsButtonOk {
+            background: #bb7d00;
+            margin-left: 10px;
+        }
     }
 
     &__toolbar {
@@ -91,6 +96,15 @@
          * Override text-align center as icons need to be left justified.
          */
         text-align: left;
+
+        .shots-clip {
+            img {
+                width: 100%;
+                margin: -48px 0 0 0px;
+                z-index: -1;
+                position: absolute;
+            }
+        }
 
         /**
          * Intentionally use margin on the icon itself as AtlasKit InlineDialog
@@ -117,17 +131,24 @@
         .connection-indicator,
         .indicator {
             position: relative;
-            font-size: 8px;
+            font-size: 20px;
             text-align: center;
             line-height: $thumbnailIndicatorSize;
             padding: 0;
             @include circle($thumbnailIndicatorSize);
             box-sizing: border-box;
             z-index: $zindex3;
-            background: $dominantSpeakerBg;
+            background: red;
             color: $thumbnailPictogramColor;
             border: $thumbnailIndicatorBorder solid $thumbnailPictogramColor;
+            width: 40px;
+            height: 40px;
 
+            svg {
+                width: 20px;
+                height: 20px;
+            }
+            
             .indicatoricon {
                 @include absoluteAligning();
             }
