@@ -18,6 +18,7 @@ import {
 import { ConnectionIndicator } from '../../../react/features/connection-indicator';
 import { DisplayName } from '../../../react/features/display-name';
 import {
+    BeerIndicator,
     DominantSpeakerIndicator,
     ShotsIndicator,
     StatusIndicators,
@@ -133,6 +134,14 @@ export default class SmallVideo {
          * @type {boolean}
          */
         this._showRaisedHand = false;
+
+        /**
+         * Whether or not the shots indicator should be displayed.
+         *
+         * @private
+         * @type {boolean}
+         */
+        this._showWantsShots = false;
 
         // Bind event handlers so they are only bound once for every instance.
         this._onPopoverHover = this._onPopoverHover.bind(this);
@@ -638,6 +647,18 @@ export default class SmallVideo {
         }
 
         this._showRaisedHand = show;
+        this.updateIndicators();
+    }
+
+    showShotsIndicator(show) {
+        if (!this.container) {
+            logger.warn(`Unable to warn for shots - ${
+                this.videoSpanId} does not exist`);
+
+            return;
+        }
+
+        this._showWantsShots = show;
         this.updateIndicators();
     }
 

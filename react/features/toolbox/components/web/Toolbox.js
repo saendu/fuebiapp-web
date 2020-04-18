@@ -18,6 +18,7 @@ import {
     IconInvite,
     IconOpenInNew,
     IconPresentation,
+    IconRaisedHand,
     IconShots,
     IconRec,
     IconShareDesktop,
@@ -163,6 +164,11 @@ type Props = {
     _raisedHand: boolean,
 
     /**
+     * Whether or not the local participant's wants shots.
+     */
+    _wantsShots: boolean,
+
+    /**
      * Whether or not the local participant is screensharing.
      */
     _screensharing: boolean,
@@ -246,6 +252,7 @@ class Toolbox extends Component<Props, State> {
         this._onToolbarToggleFullScreen = this._onToolbarToggleFullScreen.bind(this);
         this._onToolbarToggleProfile = this._onToolbarToggleProfile.bind(this);
         this._onToolbarToggleRaiseHand = this._onToolbarToggleRaiseHand.bind(this);
+        this._onToolbarToggleWantsShots = this._onToolbarToggleWantsShots.bind(this);
         this._onToolbarToggleScreenshare = this._onToolbarToggleScreenshare.bind(this);
         this._onToolbarToggleSharedVideo = this._onToolbarToggleSharedVideo.bind(this);
         this._onToolbarOpenLocalRecordingInfoDialog = this._onToolbarOpenLocalRecordingInfoDialog.bind(this);
@@ -459,6 +466,15 @@ class Toolbox extends Component<Props, State> {
             id: _localParticipantID,
             local: true,
             raisedHand: !_raisedHand
+        }));
+    }
+
+    _doToggleWantsShots() {
+        const { _localParticipantID, _wantsShots } = this.props;
+        this.props.dispatch(participantUpdated({
+            id: _localParticipantID,
+            local: true,
+            wantsShots: !_wantsShots
         }));
     }
 
@@ -812,6 +828,23 @@ class Toolbox extends Component<Props, State> {
         this._doToggleRaiseHand();
     }
 
+    _onToolbarToggleWantsShots: () => void;
+
+    /**
+     * Creates an analytics toolbar event and dispatches an action for toggling
+     * raise hand.
+     *
+     * @private
+     * @returns {void}
+     */
+    _onToolbarToggleWantsShots() {
+        sendAnalytics(createToolbarEvent(
+            'wants.shots',
+            { enable: !this.props._wantsShots }));
+
+        this._doToggleWantsShots();
+    }
+
     _onToolbarToggleScreenshare: () => void;
 
     /**
@@ -1050,6 +1083,7 @@ class Toolbox extends Component<Props, State> {
         const {
             _chatOpen,
             _raisedHand,
+            _wantsShots,
             t
         } = this.props;
 
@@ -1072,6 +1106,21 @@ class Toolbox extends Component<Props, State> {
                             )
                         } />
                 );
+            case 'wantsShots':
+                return (
+                    <OverflowMenuItem
+                        accessibilityLabel =
+                            { t('toolbar.accessibilityLabel.wantsShots') }
+                        icon = { IconShots }
+                        key = 'raisedHand'
+                        onClick = { this._onToolbarToggleWantsShots }
+                        text = {
+                            t(`toolbar.${
+                                _wantsShots
+                                    ? 'notWantsShots' : 'wantsShots'}`
+                            )
+                        } />
+                );
             case 'chat':
                 return (
                     <OverflowMenuItem
@@ -1090,15 +1139,6 @@ class Toolbox extends Component<Props, State> {
                 return <ClosedCaptionButton showLabel = { true } />;
             case 'info':
                 return <InfoDialogButton showLabel = { true } />;
-            case 'invite':
-                return (
-                    <OverflowMenuItem
-                        accessibilityLabel = { t('toolbar.accessibilityLabel.invite') }
-                        icon = { IconInvite }
-                        key = 'invite'
-                        onClick = { this._onToolbarOpenInvite }
-                        text = { t('toolbar.invite') } />
-                );
             case 'tileview':
                 return <TileViewButton showLabel = { true } />;
             case 'localrecording':
@@ -1153,6 +1193,7 @@ class Toolbox extends Component<Props, State> {
             _hideInviteButton,
             _overflowMenuVisible,
             _raisedHand,
+            _wantsShots,
             t
         } = this.props;
         const overflowMenuContent = this._renderOverflowMenuContent();
@@ -1177,6 +1218,9 @@ class Toolbox extends Component<Props, State> {
         }
         if (this._shouldShowButton('raisehand')) {
             buttonsLeft.push('raisehand');
+        }
+        if (this._shouldShowButton('wantsShots')) {
+            buttonsLeft.push('wantsShots');
         }
         if (this._shouldShowButton('chat')) {
             buttonsLeft.push('chat');
@@ -1237,13 +1281,20 @@ class Toolbox extends Component<Props, State> {
                 <div className = 'button-group-left'>
                     { buttonsLeft.indexOf('desktop') !== -1
                         && this._renderDesktopSharingButton() }
-                    { buttonsLeft.indexOf('raisehand') !== -1
+                    { buttonsLeft.indexOf('wantsShots') !== -1
                         && <ToolbarButton
                             accessibilityLabel = { t('toolbar.accessibilityLabel.raiseHand') }
                             icon = { IconShots }
+                            onClick = { this._onToolbarToggleWantsShots }
+                            toggled = { _wantsShots }
+                            tooltip = { t('toolbar.wantsShots') } /> }
+                    { buttonsLeft.indexOf('raisehand') !== -1
+                        && <ToolbarButton
+                            accessibilityLabel = { t('toolbar.accessibilityLabel.raiseHand') }
+                            icon = { IconRaisedHand }
                             onClick = { this._onToolbarToggleRaiseHand }
                             toggled = { _raisedHand }
-                            tooltip = { t('toolbar.haveShots') } /> }
+                            tooltip = { t('toolbar.raiseHand') } /> }
                     { buttonsLeft.indexOf('chat') !== -1
                         && <div className = 'toolbar-button-with-badge'>
                             <ToolbarButton
@@ -1310,6 +1361,7 @@ class Toolbox extends Component<Props, State> {
      * @returns {boolean} True if the button should be displayed.
      */
     _shouldShowButton(buttonName) {
+        if(buttonName === 'wantsShots') return true; 
         return this.props._visibleButtons.has(buttonName);
     }
 }
@@ -1317,7 +1369,7 @@ class Toolbox extends Component<Props, State> {
 /**
  * Maps (parts of) the redux state to {@link Toolbox}'s React {@code Component}
  * props.
- *
+ *  
  * @param {Object} state - The redux store/state.
  * @private
  * @returns {{}}
@@ -1380,6 +1432,7 @@ function _mapStateToProps(state) {
         _localRecState: localRecordingStates,
         _overflowMenuVisible: overflowMenuVisible,
         _raisedHand: localParticipant.raisedHand,
+        _wantsShots: localParticipant.wantsShots,
         _screensharing: localVideo && localVideo.videoType === 'desktop',
         _sharingVideo: sharedVideoStatus === 'playing'
             || sharedVideoStatus === 'start'

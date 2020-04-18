@@ -216,6 +216,11 @@ StateListenerRegistry.register(
                             store, conference, participant.getId(), newValue);
                         break;
                     }
+                    case 'wantsShots': {
+                        _wantsShotsUpdated(
+                            store, conference, participant.getId(), newValue);
+                        break;
+                    }
                     default:
 
                         // Ignore for now.
@@ -226,6 +231,8 @@ StateListenerRegistry.register(
             // We left the conference, raise hand of the local participant must be updated.
             _raiseHandUpdated(
                 store, conference, undefined, false);
+            _wantsShotsUpdated(
+                            store, conference, undefined, false);
         }
     }
 );
@@ -325,7 +332,7 @@ function _maybePlaySounds({ getState, dispatch }, action) {
  * @returns {Object} The value returned by {@code next(action)}.
  */
 function _participantJoinedOrUpdated({ dispatch, getState }, next, action) {
-    const { participant: { avatarURL, email, id, local, name, raisedHand } } = action;
+    const { participant: { avatarURL, email, id, local, name, raisedHand, wantsShots } } = action;
 
     // Send an external update of the local participant's raised hand state
     // if a new raised hand state is defined in the action.
@@ -337,6 +344,18 @@ function _participantJoinedOrUpdated({ dispatch, getState }, next, action) {
                 && conference.setLocalParticipantProperty(
                     'raisedHand',
                     raisedHand);
+        }
+    }
+
+    // Update Local wantsShots prop
+    if (typeof wantsShots !== 'undefined') {
+        if (local) {
+            const { conference } = getState()['features/base/conference'];
+
+            conference
+                && conference.setLocalParticipantProperty(
+                    'wantsShots',
+                    wantsShots);
         }
     }
 
@@ -395,6 +414,38 @@ function _raiseHandUpdated({ dispatch, getState }, conference, participantId, ne
                 name: getParticipantDisplayName(getState, pid)
             },
             titleKey: 'notify.raisedHand'
+        }, NOTIFICATION_TIMEOUT));
+    }
+}
+
+/**
+ * Handles a raise hand status update.
+ *
+ * @param {Function} dispatch - The Redux dispatch function.
+ * @param {Object} conference - The conference for which we got an update.
+ * @param {string?} participantId - The ID of the participant from which we got an update. If undefined,
+ * we update the local participant.
+ * @param {boolean} newValue - The new value of the raise hand status.
+ * @returns {void}
+ */
+function _wantsShotsUpdated({ dispatch, getState }, conference, participantId, newValue) {
+    // TODO Set state to show dialog
+
+    const wantsShots = newValue === 'true';
+    const pid = participantId || getLocalParticipant(getState()).id;
+    
+    dispatch(participantUpdated({
+        conference,
+        id: pid,
+        wantsShots
+    }));
+
+    if (wantsShots) {
+        dispatch(showNotification({
+            titleArguments: {
+                name: getParticipantDisplayName(getState, pid)
+            },
+            titleKey: 'notify.wantsShots'
         }, NOTIFICATION_TIMEOUT));
     }
 }

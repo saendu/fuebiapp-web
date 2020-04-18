@@ -76,6 +76,12 @@ export default {
     LOCAL_RAISE_HAND_CHANGED: 'UI.local_raise_hand_changed',
 
     /**
+     * Notifies that the wants shots has been changed.
+     * TODO: Maybe not necessary
+     */
+    LOCAL_WANTS_SHOTS_CHANGED: 'UI.local_wants_shots_changed',
+
+    /**
      * Notifies that the avatar is displayed or not on the largeVideo.
      */
     LARGE_VIDEO_AVATAR_VISIBLE: 'UI.large_video_avatar_visible',

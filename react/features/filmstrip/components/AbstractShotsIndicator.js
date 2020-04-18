@@ -15,7 +15,7 @@ export type Props = {
     /**
      * True if the hand is raised for this participant.
      */
-    _raisedHand?: boolean
+    _wantsShots?: boolean
 }
 
 /**
@@ -30,7 +30,7 @@ export default class AbstractShotsIndicator<P: Props>
      * @inheritdoc
      */
     render() {
-        if (!this.props._raisedHand) {
+        if (!this.props._wantsShots) {
             return null;
         }
 
@@ -55,8 +55,7 @@ export default class AbstractShotsIndicator<P: Props>
  */
 export function _mapStateToProps(state: Object, ownProps: Props): Object {
     const participant = getParticipantById(state, ownProps.participantId);
-
     return {
-        _raisedHand: participant && participant.raisedHand
+        _wantsShots: participant && participant.wantsShots
     };
 }
