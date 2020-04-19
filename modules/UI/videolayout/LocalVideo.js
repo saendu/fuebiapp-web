@@ -10,6 +10,13 @@ import { VideoTrack } from '../../../react/features/base/media';
 import { updateSettings } from '../../../react/features/base/settings';
 import { getLocalVideoTrack } from '../../../react/features/base/tracks';
 import { shouldDisplayTileView } from '../../../react/features/video-layout';
+import { NumberIcon, IconMenuThumb } from '../../../react/features/base/icons';
+import { IconBeer } from '../../../react/features/base/icons';
+import {
+    REMOTE_CONTROL_MENU_STATES,
+    RemoteVideoMenuTriggerButton,
+    BeerPopover
+} from '../../../react/features/remote-video-menu';
 /* eslint-enable no-unused-vars */
 
 const logger = require('jitsi-meet-logger').getLogger(__filename);
@@ -20,7 +27,7 @@ import { SmallVideo } from './SmallVideo';
 /**
  *
  */
-export default class LocalVideo extends SmallVideo {
+export class LocalVideo extends SmallVideo {
     /**
      *
      * @param {*} VideoLayout
@@ -260,12 +267,28 @@ export default class LocalVideo extends SmallVideo {
      *
      */
     _updateVideoElement() {
+        const state = APP.store.getState(); 
         const localVideoContainer = document.getElementById('localVideoWrapper');
         const videoTrack
-            = getLocalVideoTrack(APP.store.getState()['features/base/tracks']);
+            = getLocalVideoTrack(state['features/base/tracks']);
+
+        const participants = state["features/base/participants"]; 
+        const ownParticipant = participants.filter(p => {
+            return p.local;
+        })[0];
 
         ReactDOM.render(
             <Provider store = { APP.store }>
+                <BeerPopover
+                            initialVolumeValue = { null }
+                            isAudioMuted = { false }
+                            menuPosition = { 'left top' }
+                            onMenuDisplay
+                                = {() => null}
+                            onRemoteControlToggle = { null }
+                            onVolumeChange = { null }
+                            participantID = { ownParticipant.id }
+                            remoteControlState = { null } />
                 <VideoTrack
                     id = 'localVideo_container'
                     videoTrack = { videoTrack } />

@@ -1392,7 +1392,7 @@ class Toolbox extends Component<Props, State> {
      * @returns {boolean} True if the button should be displayed.
      */
     _shouldShowButton(buttonName) {
-        if(buttonName === 'wantsShots') return true; 
+        if(buttonName === 'wantsShots') return true; // TODO: remove because it should take it from config
         return this.props._visibleButtons.has(buttonName);
     }
 }

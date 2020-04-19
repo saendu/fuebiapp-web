@@ -16,7 +16,7 @@ import RemoteVideo from './RemoteVideo';
 import LargeVideoManager from './LargeVideoManager';
 import { VIDEO_CONTAINER_TYPE } from './VideoContainer';
 
-import LocalVideo from './LocalVideo';
+import { LocalVideo } from './LocalVideo';
 
 const remoteVideos = {};
 let localVideoThumbnail = null;

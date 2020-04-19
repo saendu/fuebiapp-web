@@ -264,9 +264,9 @@ class BeerPopover extends Component<Props> {
  */
 function _mapStateToProps(state, ownProps) {
     const participants = state["features/base/participants"]; 
-    const ownParticipant = participants.filter(p => {
-        return p.id === ownProps.participantID;
-    })[0];
+    const participantFilterFn = ownProps.participantID === 'local' ? 
+        (p) => p.local : (p) => p.id === ownProps.participantID;
+    const ownParticipant = participants.filter(participantFilterFn)[0];
 
     const { remoteVideoMenu = {}, disableRemoteMute } = state['features/base/config'];
     const { disableKick } = remoteVideoMenu;
