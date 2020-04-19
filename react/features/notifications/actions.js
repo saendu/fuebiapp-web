@@ -60,6 +60,19 @@ export function setNotificationsEnabled(enabled: boolean) {
 }
 
 /**
+ * Queues a normal notification for display.
+ *
+ * @param {Object} props - The props needed to show the notification component.
+ * @returns {Object}
+ */
+export function showSuccessNotification(props: Object, timeout: ?number) {
+    return showNotification({
+        ...props,
+        appearance: NOTIFICATION_TYPE.SUCCESS
+    }, timeout);
+}
+
+/**
  * Queues an error notification for display.
  *
  * @param {Object} props - The props needed to show the notification component.

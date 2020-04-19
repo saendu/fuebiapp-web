@@ -20,6 +20,7 @@ import {
     IconPresentation,
     IconRaisedHand,
     IconShots,
+    IconBeer,
     IconRec,
     IconShareDesktop,
     IconShareVideo
@@ -94,6 +95,11 @@ type Props = {
     /**
      * Whether or not the chat feature is currently displayed.
      */
+    _beerCount: number,
+
+    /**
+     * Whether or not the chat feature is currently displayed.
+     */
     _chatOpen: boolean,
 
     /**
@@ -142,6 +148,11 @@ type Props = {
      * Whether or not the current user is logged in through a JWT.
      */
     _isGuest: boolean,
+
+    /**
+     * local participant.
+     */
+    _localParticipant: Object,
 
     /**
      * The ID of the local participant.
@@ -231,7 +242,6 @@ class Toolbox extends Component<Props, State> {
      */
     constructor(props: Props) {
         super(props);
-
         // Bind event handlers so they are only bound once per instance.
         this._onMouseOut = this._onMouseOut.bind(this);
         this._onMouseOver = this._onMouseOver.bind(this);
@@ -253,6 +263,7 @@ class Toolbox extends Component<Props, State> {
         this._onToolbarToggleProfile = this._onToolbarToggleProfile.bind(this);
         this._onToolbarToggleRaiseHand = this._onToolbarToggleRaiseHand.bind(this);
         this._onToolbarToggleWantsShots = this._onToolbarToggleWantsShots.bind(this);
+        this._onClickMoreBeerButton = this._onClickMoreBeerButton.bind(this);
         this._onToolbarToggleScreenshare = this._onToolbarToggleScreenshare.bind(this);
         this._onToolbarToggleSharedVideo = this._onToolbarToggleSharedVideo.bind(this);
         this._onToolbarOpenLocalRecordingInfoDialog = this._onToolbarOpenLocalRecordingInfoDialog.bind(this);
@@ -845,6 +856,19 @@ class Toolbox extends Component<Props, State> {
         this._doToggleWantsShots();
     }
 
+    _onClickMoreBeerButton: () => void;
+
+    _onClickMoreBeerButton() {
+        const { _localParticipantID, _localParticipant } = this.props;
+        let beerCount = _localParticipant.beerCount;
+        
+        this.props.dispatch(participantUpdated({
+            id: _localParticipantID,
+            local: true,
+            beerCount: ++beerCount
+        }));
+    }
+
     _onToolbarToggleScreenshare: () => void;
 
     /**
@@ -1288,13 +1312,20 @@ class Toolbox extends Component<Props, State> {
                             onClick = { this._onToolbarToggleWantsShots }
                             toggled = { _wantsShots }
                             tooltip = { t('toolbar.wantsShots') } /> }
-                    { buttonsLeft.indexOf('raisehand') !== -1
+                    { buttonsLeft.indexOf('wantsShots') !== -1
+                        && <ToolbarButton
+                            accessibilityLabel = { t('toolbar.accessibilityLabel.nextBeer') }
+                            icon = { IconBeer }
+                            onClick = { this._onClickMoreBeerButton }
+                            toggled = { _wantsShots }
+                            tooltip = { t('toolbar.nextBeer') } /> }
+                    { /* buttonsLeft.indexOf('raisehand') !== -1
                         && <ToolbarButton
                             accessibilityLabel = { t('toolbar.accessibilityLabel.raiseHand') }
                             icon = { IconRaisedHand }
                             onClick = { this._onToolbarToggleRaiseHand }
                             toggled = { _raisedHand }
-                            tooltip = { t('toolbar.raiseHand') } /> }
+                            tooltip = { t('toolbar.raiseHand') } /> */}
                     { buttonsLeft.indexOf('chat') !== -1
                         && <div className = 'toolbar-button-with-badge'>
                             <ToolbarButton
@@ -1428,6 +1459,7 @@ function _mapStateToProps(state) {
         _isGuest: state['features/base/jwt'].isGuest,
         _fullScreen: fullScreen,
         _tileViewEnabled: state['features/video-layout'].tileViewEnabled,
+        _localParticipant: localParticipant,
         _localParticipantID: localParticipant.id,
         _localRecState: localRecordingStates,
         _overflowMenuVisible: overflowMenuVisible,

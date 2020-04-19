@@ -95,6 +95,7 @@ import {
     participantRoleChanged,
     participantUpdated
 } from './react/features/base/participants';
+
 import {
     getUserSelectedCameraDeviceId,
     updateSettings
@@ -1935,7 +1936,19 @@ export default {
 
         room.on(JitsiConferenceEvents.PARTCIPANT_FEATURES_CHANGED,
             user => APP.UI.onUserFeaturesChanged(user));
+        
         room.on(JitsiConferenceEvents.USER_JOINED, (id, user) => {
+            // SEND BEER COUNT FOR ENTERING PARTICIPANTS
+            const state = APP.store.getState(); 
+            const localParticipant = getLocalParticipant(state);
+            
+            APP.store.dispatch(participantUpdated({
+                id: localParticipant.id,
+                local: true,
+                beerCount: localParticipant.beerCount == 0 ? 
+                    localParticipant.beerCount : localParticipant.beerCount + 0.01, // Ugly hack to make the UI of the new joining participant update with the values of other participants
+            }));
+           
             // The logic shared between RN and web.
             commonUserJoinedHandling(APP.store, room, user);
 

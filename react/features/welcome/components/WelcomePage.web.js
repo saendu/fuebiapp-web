@@ -192,6 +192,16 @@ class WelcomePage extends AbstractWelcomePage {
                                 { app: APP_NAME }) }
                         </p>
                     </div>
+                    <div className='header-features'>
+                        <h3>Features in progress</h3>
+                        <p>
+                        <ul>
+                            <li>Last beer timer</li>
+                            <li>Iniciate next round</li>
+                            <li>Poke someone to have another drink</li>
+                        </ul>
+                        </p>
+                    </div>
                     <div id = 'enter_room'>
                         <div className = 'enter-room-input-container'>
                             <div className = 'enter-room-title'>

@@ -30,7 +30,7 @@ body.welcome-page {
             display: flex;
             flex-direction: column;
             margin-top: $watermarkHeight + $welcomePageHeaderTextMarginTop;
-            margin-bottom: $welcomePageHeaderTextMarginBottom;
+            margin-bottom: ($welcomePageHeaderTextMarginBottom)-20;
             max-width: calc(100% - 40px);
             width: 650px;
             z-index: $zindex2;
@@ -53,6 +53,28 @@ body.welcome-page {
             line-height: $welcomePageHeaderTextDescriptionLineHeight;
             margin-bottom: $welcomePageHeaderTextDescriptionMarginBottom;
             align-self: $welcomePageHeaderTextDescriptionAlignSelf;
+        }
+
+        .header-features {
+            margin-bottom: 2rem;
+            h3 {
+                color: $welcomePageTitleColor;
+                margin-left: -4rem;
+            }
+            ul {
+                text-align: left;
+            }
+            
+            p {
+                display: $welcomePageHeaderTextDescriptionDisplay;
+                color: $welcomePageDescriptionColor;
+                font-size: $welcomePageHeaderTextDescriptionFontSize;
+                font-weight: $welcomePageHeaderTextDescriptionFontWeight;
+                line-height: $welcomePageHeaderTextDescriptionLineHeight;
+                margin-bottom: $welcomePageHeaderTextDescriptionMarginBottom;
+                align-self: $welcomePageHeaderTextDescriptionAlignSelf;
+            }
+            
         }
 
         #enter_room {

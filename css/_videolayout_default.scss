@@ -148,6 +148,16 @@
                 width: 20px;
                 height: 20px;
             }
+
+            &.beerindicator {
+                background:none;
+                border: none; 
+
+                svg {
+                    width: 30px;
+                    height: 30px;
+                }
+            }
             
             .indicatoricon {
                 @include absoluteAligning();
@@ -432,6 +442,20 @@
 }
 .remote-video-menu-trigger {
     margin-top: 7px;
+}
+
+.beerPopover {
+    right: 5px; 
+    width: 50px;
+
+    .numberIcon {
+        display: flex;
+
+        .numberBubble {
+            margin-right: 5px;
+            font-size: 20px;
+        }
+    }
 }
 
 /**

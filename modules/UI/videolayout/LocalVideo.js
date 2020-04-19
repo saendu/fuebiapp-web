@@ -15,7 +15,7 @@ import { shouldDisplayTileView } from '../../../react/features/video-layout';
 const logger = require('jitsi-meet-logger').getLogger(__filename);
 
 import UIEvents from '../../../service/UI/UIEvents';
-import SmallVideo from './SmallVideo';
+import { SmallVideo } from './SmallVideo';
 
 /**
  *

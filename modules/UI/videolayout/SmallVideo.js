@@ -20,6 +20,7 @@ import { DisplayName } from '../../../react/features/display-name';
 import {
     BeerIndicator,
     DominantSpeakerIndicator,
+    RaisedHandIndicator,
     ShotsIndicator,
     StatusIndicators,
     ShotsWarning
@@ -30,6 +31,9 @@ import {
     setTileView,
     shouldDisplayTileView
 } from '../../../react/features/video-layout';
+
+import { NumberIcon, IconBeer } from '../../../react/features/base/icons';
+import { connect } from '../../../react/features/base/redux';
 
 /* eslint-enable no-unused-vars */
 
@@ -80,7 +84,7 @@ const DISPLAY_AVATAR_WITH_NAME = 4;
 /**
  *
  */
-export default class SmallVideo {
+export class SmallVideo {
     /**
      * Constructor.
      */
@@ -293,6 +297,17 @@ export default class SmallVideo {
             return;
         }
 
+        /**
+        <span
+                            className = 'popover-trigger remote-video-menu-trigger'>
+                            <NumberIcon
+                                size = '2em'
+                                src = { IconBeer }
+                                title = 'Beer stats' 
+                                number = {0} />
+                        </span>
+         */
+        
         ReactDOM.render(
             <Provider store = { APP.store }>
                 <I18nextProvider i18n = { i18next }>
@@ -811,6 +826,10 @@ export default class SmallVideo {
                                         tooltipPosition = { tooltipPosition } 
                                 />
                                 <ShotsWarning />
+                                <RaisedHandIndicator
+                                    iconSize = { iconSize }
+                                    participantId = { this.id }
+                                    tooltipPosition = { tooltipPosition } />
                             { this._showDominantSpeaker && participantCount > 2
                                 ? <DominantSpeakerIndicator
                                     iconSize = { iconSize }
@@ -971,3 +990,17 @@ export default class SmallVideo {
         }
     }
 }
+
+/**
+ 
+ 
+function _mapStateToProps(state, ownProps) {
+    console.log('HEEEERE')
+
+    return {
+    };
+}
+
+export default connect(_mapStateToProps)(SmallVideo);
+
+*/

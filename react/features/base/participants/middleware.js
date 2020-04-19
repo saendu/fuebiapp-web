@@ -2,7 +2,7 @@
 
 import UIEvents from '../../../../service/UI/UIEvents';
 
-import { NOTIFICATION_TIMEOUT, showNotification } from '../../notifications';
+import { NOTIFICATION_TIMEOUT, showNotification, showSuccessNotification } from '../../notifications';
 import { CALLING, INVITED } from '../../presence-status';
 
 import { APP_WILL_MOUNT, APP_WILL_UNMOUNT } from '../app';
@@ -221,6 +221,11 @@ StateListenerRegistry.register(
                             store, conference, participant.getId(), newValue);
                         break;
                     }
+                    case 'beerCount': {
+                        _beerCountUpdated(
+                            store, conference, participant.getId(), newValue);
+                        break;
+                    }
                     default:
 
                         // Ignore for now.
@@ -332,8 +337,7 @@ function _maybePlaySounds({ getState, dispatch }, action) {
  * @returns {Object} The value returned by {@code next(action)}.
  */
 function _participantJoinedOrUpdated({ dispatch, getState }, next, action) {
-    const { participant: { avatarURL, email, id, local, name, raisedHand, wantsShots } } = action;
-
+    const { participant: { avatarURL, email, id, local, name, raisedHand, wantsShots, beerCount } } = action;
     // Send an external update of the local participant's raised hand state
     // if a new raised hand state is defined in the action.
     if (typeof raisedHand !== 'undefined') {
@@ -356,6 +360,18 @@ function _participantJoinedOrUpdated({ dispatch, getState }, next, action) {
                 && conference.setLocalParticipantProperty(
                     'wantsShots',
                     wantsShots);
+        }
+    }
+
+    // Update LOCAL beerCount
+    if (typeof beerCount !== 'undefined') {
+        if (local) {
+            const { conference } = getState()['features/base/conference'];
+
+            conference
+                && conference.setLocalParticipantProperty(
+                    'beerCount',
+                    beerCount);
         }
     }
 
@@ -448,6 +464,38 @@ function _wantsShotsUpdated({ dispatch, getState }, conference, participantId, n
             titleKey: 'notify.wantsShots'
         }, NOTIFICATION_TIMEOUT));
     }
+}
+
+/**
+ * Handles a new beer
+ *
+ * @param {Function} dispatch - The Redux dispatch function.
+ * @param {Object} conference - The conference for which we got an update.
+ * @param {string?} participantId - The ID of the participant from which we got an update. If undefined,
+ * we update the local participant.
+ * @param {boolean} newValue - The new value of the raise hand status.
+ * @returns {void}
+ */
+function _beerCountUpdated({ dispatch, getState }, conference, participantId, newValue) {    
+    const beerCount = newValue;
+    const pid = participantId || getLocalParticipant(getState()).id;
+
+    dispatch(participantUpdated({
+        conference,
+        id: pid,
+        beerCount
+    }));
+
+    // NOTIFY OTHERS
+    if (beerCount) {
+        dispatch(showSuccessNotification({
+            titleArguments: {
+                name: getParticipantDisplayName(getState, pid)
+            },
+            titleKey: 'notify.newBeer'
+        }, 4000));
+    }
+    
 }
 
 /**

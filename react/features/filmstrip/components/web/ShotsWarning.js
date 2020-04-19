@@ -46,7 +46,7 @@ class ShotsWarning extends AbstractShotsWarning<Props> {
                 <Banner icon={Icon} isOpen={true} appearance="error">
                     {this.props._shotsEnforcerName} wants everyone to take SHOTS!
                 </Banner>
-                <div class="shots-clip"><img src="images/shots.gif"/></div>
+                <div className="shots-clip"><img src="images/shots.gif"/></div>
             </div>
         );
     }
