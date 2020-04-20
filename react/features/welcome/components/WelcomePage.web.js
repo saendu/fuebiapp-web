@@ -196,7 +196,6 @@ class WelcomePage extends AbstractWelcomePage {
                         <h3>Features in progress</h3>
                         <p>
                         <ul>
-                            <li>Last beer timer</li>
                             <li>Iniciate next round</li>
                             <li>Poke someone to have another drink</li>
                         </ul>
@@ -214,7 +213,7 @@ class WelcomePage extends AbstractWelcomePage {
                                     id = 'enter_room_field'
                                     onChange = { this._onRoomChange }
                                     pattern = { ROOM_NAME_VALIDATE_PATTERN_STR }
-                                    placeholder = { this.state.roomPlaceholder }
+                                    placeholder = { '<Room Name>' }
                                     ref = { this._setRoomInputRef }
                                     title = { t('welcomepage.roomNameAllowedChars') }
                                     type = 'text'
