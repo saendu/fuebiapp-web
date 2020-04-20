@@ -458,7 +458,8 @@
         "unmute": "Stummschaltung aufheben",
         "newDeviceCameraTitle": "Neue Kamera erkannt",
         "newDeviceAudioTitle": "Neues Audiogerät erkannt",
-        "newDeviceAction": "Verwenden"
+        "newDeviceAction": "Verwenden",
+        "wantsShots": "{{name}} will eine Runde Shots!"
     },
     "passwordSetRemotely": "von einem anderen Teilnehmer gesetzt",
     "passwordDigitsOnly": "Bis zu {{number}} Ziffern",

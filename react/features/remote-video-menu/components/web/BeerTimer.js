@@ -65,11 +65,7 @@ export default class BeerCounter extends Component<*, State> {
             //$("#time").text(time);
         };
 
-        
-
         let intervalId = setInterval(() => {
-            console.log('interval')
-
             let prevTime = 0;
             let elapsedTime = 0;
             let startTimeDiffMs = Date.now() - this.props.beerTimeStamp; 

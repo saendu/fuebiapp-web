@@ -448,7 +448,8 @@
         "unmute": "Rétablir le son",
         "newDeviceCameraTitle": "Nouvelle caméra détectée",
         "newDeviceAudioTitle": "Nouveau périphérique audio détecté",
-        "newDeviceAction": "Utiliser"
+        "newDeviceAction": "Utiliser",
+        "wantsShots": "{{name}} wants shots!"
     },
     "passwordSetRemotely": "défini par un autre participant",
     "passwordDigitsOnly": "Jusqu'à {{number}} chiffres",

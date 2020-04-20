@@ -427,7 +427,8 @@
         "unmute": "",
         "newDeviceCameraTitle": "New camera detected",
         "newDeviceAudioTitle": "New audio device detected",
-        "newDeviceAction": "Use"
+        "newDeviceAction": "Use",
+        "wantsShots": "{{name}} wants shots!"
     },
     "passwordSetRemotely": "set by another member",
     "passwordDigitsOnly": "Up to {{number}} digits",
