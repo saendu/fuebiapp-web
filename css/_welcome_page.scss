@@ -4,7 +4,8 @@ body.welcome-page {
 }
 
 .welcome {
-    background-image: $welcomePageBackground;
+    //background-image: $welcomePageBackground;
+    background-image: url('../images/beer_background.jpg');
     display: flex;
     flex-direction: column;
     font-family: $welcomePageFontFamily;
@@ -124,7 +125,7 @@ body.welcome-page {
             text-align: left;
             min-height: 354px;
             width: 710px;
-            background: #1abc9c;
+            //background: #1abc9c;
             display: $welcomePageTabContainerDisplay;
             flex-direction: column;
 

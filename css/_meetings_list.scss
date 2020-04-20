@@ -43,7 +43,7 @@
     }
 
     .item {
-        background: rgba(255,255,255,0.50);
+        background: rgba(255,255,255,0.80);
         box-sizing: border-box;
         display: inline-flex;
         margin-top: 5px;
@@ -99,7 +99,7 @@
         }
 
         &.with-click-handler:hover {
-            background-color: #1ba488;
+            background-color: #00e0af;
         }
 
         .add-button {
