@@ -226,6 +226,11 @@ StateListenerRegistry.register(
                             store, conference, participant.getId(), newValue);
                         break;
                     }
+                    case 'beerTimeStamp': {
+                        _beerTimeStampUpdated(
+                            store, conference, participant.getId(), newValue);
+                        break;
+                    }
                     default:
 
                         // Ignore for now.
@@ -337,7 +342,7 @@ function _maybePlaySounds({ getState, dispatch }, action) {
  * @returns {Object} The value returned by {@code next(action)}.
  */
 function _participantJoinedOrUpdated({ dispatch, getState }, next, action) {
-    const { participant: { avatarURL, email, id, local, name, raisedHand, wantsShots, beerCount } } = action;
+    const { participant: { avatarURL, email, id, local, name, raisedHand, wantsShots, beerCount, beerTimeStamp } } = action;
     // Send an external update of the local participant's raised hand state
     // if a new raised hand state is defined in the action.
     if (typeof raisedHand !== 'undefined') {
@@ -372,6 +377,18 @@ function _participantJoinedOrUpdated({ dispatch, getState }, next, action) {
                 && conference.setLocalParticipantProperty(
                     'beerCount',
                     beerCount);
+        }
+    }
+
+    // Update LOCAL beerCount
+    if (typeof beerTimeStamp !== 'undefined') {
+        if (local) {
+            const { conference } = getState()['features/base/conference'];
+
+            conference
+                && conference.setLocalParticipantProperty(
+                    'beerTimeStamp',
+                    beerTimeStamp);
         }
     }
 
@@ -495,6 +512,28 @@ function _beerCountUpdated({ dispatch, getState }, conference, participantId, ne
             titleKey: 'notify.newBeer'
         }, 4000));
     }
+    
+}
+
+/**
+ * Handles a new beerTimeStamp
+ *
+ * @param {Function} dispatch - The Redux dispatch function.
+ * @param {Object} conference - The conference for which we got an update.
+ * @param {string?} participantId - The ID of the participant from which we got an update. If undefined,
+ * we update the local participant.
+ * @param {boolean} newValue - The new value of the raise hand status.
+ * @returns {void}
+ */
+function _beerTimeStampUpdated({ dispatch, getState }, conference, participantId, newValue) {    
+    const beerTimeStamp = newValue;
+    const pid = participantId || getLocalParticipant(getState()).id;
+
+    dispatch(participantUpdated({
+        conference,
+        id: pid,
+        beerTimeStamp
+    }));
     
 }
 

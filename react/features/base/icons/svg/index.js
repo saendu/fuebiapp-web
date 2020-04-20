@@ -8,6 +8,7 @@ export { default as IconAudioOnly } from './visibility.svg';
 export { default as IconAudioOnlyOff } from './visibility-off.svg';
 export { default as IconAudioRoute } from './volume.svg';
 export { default as IconBeer } from './beer_button.svg';
+export { default as IconBeerWhite } from './beer_white.svg';
 export { default as IconPoke } from './push_button.svg';
 export { default as IconBlurBackground } from './blur-background.svg';
 export { default as IconCamera } from './camera.svg';

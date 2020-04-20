@@ -10,7 +10,7 @@ export {
     default as MuteRemoteParticipantDialog
 } from './MuteRemoteParticipantDialog';
 export { default as PrivateMessageMenuButton } from './PrivateMessageMenuButton';
-export { default as BeerCounter } from './BeerCounter';
+export { default as BeerTimer } from './BeerTimer';
 export { default as PokeButton } from './PokeButton';
 export {
     REMOTE_CONTROL_MENU_STATES,

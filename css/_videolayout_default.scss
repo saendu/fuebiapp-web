@@ -33,6 +33,7 @@
 }
 
 .videocontainer {
+    background-image: url('../images/beer_background.jpg') !important;
     position: relative;
     text-align: center;
 
@@ -445,16 +446,23 @@
 }
 
 .beerPopover {
-    right: 5px; 
-    width: 50px;
+    right: 10px; 
+    width: 70px;
 
     .numberIcon {
         display: flex;
+        padding-left: 5px;
 
         .numberBubble {
             margin-right: 5px;
             font-size: 20px;
         }
+    }
+
+    .timer {
+        margin-left: -10px;
+        margin-top: 2px;
+        font-size: 15px;
     }
 }
 

@@ -20,7 +20,7 @@ import {
     IconPresentation,
     IconRaisedHand,
     IconShots,
-    IconBeer,
+    IconBeerWhite,
     IconRec,
     IconShareDesktop,
     IconShareVideo
@@ -96,6 +96,8 @@ type Props = {
      * Whether or not the chat feature is currently displayed.
      */
     _beerCount: number,
+
+    _beerTimeStamp: Date,
 
     /**
      * Whether or not the chat feature is currently displayed.
@@ -865,7 +867,8 @@ class Toolbox extends Component<Props, State> {
         this.props.dispatch(participantUpdated({
             id: _localParticipantID,
             local: true,
-            beerCount: ++beerCount
+            beerCount: ++beerCount,
+            beerTimeStamp: Date.now()
         }));
     }
 
@@ -1246,6 +1249,9 @@ class Toolbox extends Component<Props, State> {
         if (this._shouldShowButton('wantsShots')) {
             buttonsLeft.push('wantsShots');
         }
+        if (this._shouldShowButton('nextBeer')) {
+            buttonsLeft.push('nextBeer');
+        }
         if (this._shouldShowButton('chat')) {
             buttonsLeft.push('chat');
         }
@@ -1312,12 +1318,12 @@ class Toolbox extends Component<Props, State> {
                             onClick = { this._onToolbarToggleWantsShots }
                             toggled = { _wantsShots }
                             tooltip = { t('toolbar.wantsShots') } /> }
-                    { buttonsLeft.indexOf('wantsShots') !== -1
+                    { buttonsLeft.indexOf('nextBeer') !== -1
                         && <ToolbarButton
                             accessibilityLabel = { t('toolbar.accessibilityLabel.nextBeer') }
-                            icon = { IconBeer }
+                            icon = { IconBeerWhite }
                             onClick = { this._onClickMoreBeerButton }
-                            toggled = { _wantsShots }
+                            toggled = { false }
                             tooltip = { t('toolbar.nextBeer') } /> }
                     { /* buttonsLeft.indexOf('raisehand') !== -1
                         && <ToolbarButton
@@ -1393,6 +1399,7 @@ class Toolbox extends Component<Props, State> {
      */
     _shouldShowButton(buttonName) {
         if(buttonName === 'wantsShots') return true; // TODO: remove because it should take it from config
+        if(buttonName === 'nextBeer') return true; // TODO: remove because it should take it from config
         return this.props._visibleButtons.has(buttonName);
     }
 }

@@ -8,10 +8,8 @@ import { getLocalParticipant, getParticipantById, PARTICIPANT_ROLE } from '../..
 import { Popover } from '../../../base/popover';
 import { connect } from '../../../base/redux';
 
-const Stopwatch = require('statman-stopwatch');
-
 import {
-    BeerCounter,
+    BeerTimer,
     MuteButton,
     MuteEveryoneElseButton,
     KickButton,
@@ -48,6 +46,9 @@ type Props = {
 
     /* BEER COUNT */
     _beerCount: number,
+
+    /* BEER TIMESTAMP */
+    _beerTimeStamp: number,
 
     /**
      * A value between 0 and 1 indicating the volume of the participant's
@@ -101,7 +102,7 @@ type Props = {
  *
  * @extends {Component}
  */
-class BeerPopover extends Component<Props> {
+class BeerPopover extends Component<Props, State> {
     /**
      * The internal reference to topmost DOM/HTML element backing the React
      * {@code Component}. Accessed directly for associating an element as
@@ -111,7 +112,6 @@ class BeerPopover extends Component<Props> {
      * @type {HTMLDivElement}
      */
     _rootElement = null;
-    _timer: any; 
 
     /**
      * Initializes a new {#@code RemoteBeerIndicator} instance.
@@ -121,10 +121,8 @@ class BeerPopover extends Component<Props> {
      */
     constructor(props: Object) {
         super(props);
-
         // Bind event handler so it is only bound once for every instance.
         this._onShowRemoteMenu = this._onShowRemoteMenu.bind(this);
-        this._timer = new Stopwatch(true);
     }
 
     /**
@@ -153,6 +151,10 @@ class BeerPopover extends Component<Props> {
                         src = { IconBeer }
                         title = 'Beer stats' 
                         number = {this.props._beerCount} />
+                    <BeerTimer
+                        beerCount = {this.props._beerCount}
+                        beerTimeStamp = {this.props._beerTimeStamp}
+                    />
                 </div>
             </Popover>
         );
@@ -191,13 +193,6 @@ class BeerPopover extends Component<Props> {
         } = this.props;
 
         const buttons = [];
-        
-        buttons.push(
-            <BeerCounter
-                beerTimer = { this._timer }
-                key = 'beer-counter'
-                participantID = { participantID } />
-        );
         
         buttons.push(
             <PokeButton
@@ -275,7 +270,8 @@ function _mapStateToProps(state, ownProps) {
         _isModerator: Boolean((ownParticipant?.role) === PARTICIPANT_ROLE.MODERATOR),
         _disableKick: Boolean(disableKick),
         _disableRemoteMute: Boolean(disableRemoteMute),
-        _beerCount: ownParticipant ? Math.round(ownParticipant.beerCount) : 0 // hack to force update
+        _beerCount: ownParticipant ? Math.round(ownParticipant.beerCount) : 0, // fix back hack to force update
+        _beerTimeStamp: ownParticipant.beerTimeStamp
     };
 }
 

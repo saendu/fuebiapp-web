@@ -1941,14 +1941,18 @@ export default {
             // SEND BEER COUNT FOR ENTERING PARTICIPANTS
             const state = APP.store.getState(); 
             const localParticipant = getLocalParticipant(state);
+            const integer = Math.floor(localParticipant.beerCount);
+            const newCount = localParticipant.beerCount > integer ? 
+                integer : localParticipant.beerCount + 0.01 // Ugly hack to force a UI update of the joining participants 
+            const beerTimeStamp = localParticipant.beerTimeStamp + 1; // Ugly hack to force a UI update of the joining participants
             
             APP.store.dispatch(participantUpdated({
                 id: localParticipant.id,
                 local: true,
-                beerCount: localParticipant.beerCount == 0 ? 
-                    localParticipant.beerCount : localParticipant.beerCount + 0.01, // Ugly hack to make the UI of the new joining participant update with the values of other participants
+                beerCount: newCount, 
+                beerTimeStamp: beerTimeStamp  
             }));
-           
+
             // The logic shared between RN and web.
             commonUserJoinedHandling(APP.store, room, user);
 
