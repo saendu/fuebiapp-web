@@ -271,7 +271,7 @@ function _mapStateToProps(state, ownProps) {
         _disableKick: Boolean(disableKick),
         _disableRemoteMute: Boolean(disableRemoteMute),
         _beerCount: ownParticipant ? Math.round(ownParticipant.beerCount) : 0, // fix back hack to force update
-        _beerTimeStamp: ownParticipant.beerTimeStamp
+        _beerTimeStamp: ownParticipant ? ownParticipant.beerTimeStamp : null
     };
 }
 
