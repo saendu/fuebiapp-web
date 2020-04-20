@@ -242,6 +242,9 @@ class Toolbox extends Component<Props, State> {
      * @param {Props} props - The read-only React {@code Component} props with
      * which the new instance is to be initialized.
      */
+
+    _shotsTimeoutId: number; 
+
     constructor(props: Props) {
         super(props);
         // Bind event handlers so they are only bound once per instance.
@@ -484,11 +487,25 @@ class Toolbox extends Component<Props, State> {
 
     _doToggleWantsShots() {
         const { _localParticipantID, _wantsShots } = this.props;
+
         this.props.dispatch(participantUpdated({
             id: _localParticipantID,
             local: true,
             wantsShots: !_wantsShots
         }));
+
+        if(!this._shotsTimeoutId) {
+            this._shotsTimeoutId = setTimeout(() => {
+                // revert shots button
+                this.props.dispatch(participantUpdated({
+                    id: _localParticipantID,
+                    local: true,
+                    wantsShots: false
+                }));
+                this._shotsTimeoutId = null; 
+            }, 10000);
+        }
+        
     }
 
     /**
@@ -861,15 +878,19 @@ class Toolbox extends Component<Props, State> {
     _onClickMoreBeerButton: () => void;
 
     _onClickMoreBeerButton() {
+        if(this.disabled) return; 
         const { _localParticipantID, _localParticipant } = this.props;
         let beerCount = _localParticipant.beerCount;
-        
+
         this.props.dispatch(participantUpdated({
             id: _localParticipantID,
             local: true,
             beerCount: ++beerCount,
             beerTimeStamp: Date.now()
         }));
+
+        this.disabled=true;
+        setTimeout(() => this.disabled=false, 4000);
     }
 
     _onToolbarToggleScreenshare: () => void;
@@ -1123,7 +1144,7 @@ class Toolbox extends Component<Props, State> {
                     <OverflowMenuItem
                         accessibilityLabel =
                             { t('toolbar.accessibilityLabel.raiseHand') }
-                        icon = { IconShots }
+                        icon = { IconRaiseHand }
                         key = 'raisedHand'
                         onClick = { this._onToolbarToggleRaiseHand }
                         text = {
