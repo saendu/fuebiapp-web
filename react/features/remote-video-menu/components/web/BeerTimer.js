@@ -7,14 +7,20 @@ import { connect } from '../../../base/redux';
 import { IconBeer } from '../../../base/icons';
 import { Icon } from '../../../base/icons';
 
+type Props = {
+
+    beerCount: number,
+    beerTimeStamp: number
+
+};
 
 type State = {
     beerTimer: string,
 }
 
-export default class BeerCounter extends Component<*, State> {
+export default class BeerCounter extends Component<Props, State> {
     
-    _timerId: number; 
+    _timerId: ?IntervalID; 
     _previousBeerCount: number = 0; 
 
     constructor(props: Props) {
@@ -44,7 +50,7 @@ export default class BeerCounter extends Component<*, State> {
         );
     }
 
-    _startTimer: () => void;
+    _startTimer: () => IntervalID;
 
     _startTimer() {
         const updateTime = (t) => {

@@ -102,7 +102,7 @@ type Props = {
  *
  * @extends {Component}
  */
-class BeerPopover extends Component<Props, State> {
+class BeerPopover extends Component<Props, *> {
     /**
      * The internal reference to topmost DOM/HTML element backing the React
      * {@code Component}. Accessed directly for associating an element as
