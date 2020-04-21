@@ -63,24 +63,6 @@ const Filmstrip = {
             height: `${avatarSize}px`,
             width: `${avatarSize}px`
         });
-
-        // Resize beerPopover when tile resize
-        $('.remote-video-menu-trigger.beerPopover').css({
-            bottom: '',
-            left: ''
-        });
-
-        $('.remote-video-menu-trigger .numberIcon').css({
-            'font-size': '10pt',
-        });
-
-        $('.remote-video-menu-trigger .numberBubble').css({
-            'font-size': '20px',
-        });
-
-        $('.remote-video-menu-trigger .timer').css({
-            'font-size': '15px',
-        });
     },
 
     /**
@@ -163,24 +145,6 @@ const Filmstrip = {
             $('#filmstripRemoteVideosContainer > span > .avatar-container').css({
                 height: '50%',
                 width: `${heightToWidthPercent / 2}%`
-            });
-
-            // Resize beerPopover when tile resize
-            $('.remote-video-menu-trigger.beerPopover').css({
-                bottom: '30px',
-                left: `5px`
-            });
-
-            $('.remote-video-menu-trigger .numberIcon').css({
-                'font-size': '10px',
-            });
-
-            $('.remote-video-menu-trigger .numberBubble').css({
-                'font-size': '15px',
-            });
-
-            $('.remote-video-menu-trigger .timer').css({
-                'font-size': '12px',
             });
         }
     },
