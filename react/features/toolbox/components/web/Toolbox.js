@@ -243,7 +243,7 @@ class Toolbox extends Component<Props, State> {
      * which the new instance is to be initialized.
      */
 
-    _shotsTimeoutId: number; 
+    _shotsTimeoutId: ?TimeoutID; 
 
     constructor(props: Props) {
         super(props);
@@ -878,7 +878,6 @@ class Toolbox extends Component<Props, State> {
     _onClickMoreBeerButton: () => void;
 
     _onClickMoreBeerButton() {
-        if(this.disabled) return; 
         const { _localParticipantID, _localParticipant } = this.props;
         let beerCount = _localParticipant.beerCount;
 
@@ -888,9 +887,6 @@ class Toolbox extends Component<Props, State> {
             beerCount: ++beerCount,
             beerTimeStamp: Date.now()
         }));
-
-        this.disabled=true;
-        setTimeout(() => this.disabled=false, 4000);
     }
 
     _onToolbarToggleScreenshare: () => void;
@@ -1144,7 +1140,7 @@ class Toolbox extends Component<Props, State> {
                     <OverflowMenuItem
                         accessibilityLabel =
                             { t('toolbar.accessibilityLabel.raiseHand') }
-                        icon = { IconRaiseHand }
+                        icon = { IconRaisedHand }
                         key = 'raisedHand'
                         onClick = { this._onToolbarToggleRaiseHand }
                         text = {

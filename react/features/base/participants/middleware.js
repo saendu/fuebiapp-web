@@ -504,7 +504,10 @@ function _beerCountUpdated({ dispatch, getState }, conference, participantId, ne
     }));
 
     // NOTIFY OTHERS
-    if (beerCount >= 1) { // this is necessery because of update hack +0.01
+    const participant = getParticipantById(getState(), participantId);
+    const timeNewBeerPushedLast = participant.beerTimeStamp ? (Date.now() - participant.beerTimeStamp)/1000 : null; 
+
+    if (beerCount >= 1 && (!timeNewBeerPushedLast || timeNewBeerPushedLast > 10)) { // this is necessery because of update hack +0.01
         dispatch(showSuccessNotification({
             titleArguments: {
                 name: getParticipantDisplayName(getState, pid)
