@@ -2,7 +2,7 @@
 
 Jitsi Meet is an open-source (Apache) WebRTC JavaScript application that uses [Jitsi Videobridge](https://jitsi.org/videobridge) to provide high quality, [secure](#security) and scalable video conferences. Jitsi Meet in action can be seen at [here at the session #482 of the VoIP Users Conference](http://youtu.be/7vFUVClsNh0).
 
-The Jitsi Meet client runs in your browser, without installing anything else on your computer. You can try it out at https://meet.jit.si .
+The Jitsi Meet client runs in your browser, without installing anything else on your computer. You can try it out at https://meet.jit.si.
 
 Jitsi Meet allows very efficient collaboration. Users can stream their desktop or only some windows. It also supports shared document editing with Etherpad.
 
@@ -75,11 +75,7 @@ at [8x8](https://8x8.com).
 
 ## Security issues
 
-We take security very seriously and develop all Jitsi projects to be secure and safe.
-
-If you find (or simply suspect) a security issue in any of the Jitsi projects, please send us an email to security@jitsi.org.
-
-**We encourage responsible disclosure for the sake of our users, so please reach out before posting in a public space.**
+For information on reporting security vulnerabilities in Jitsi Meet, see [SECURITY.md](./SECURITY.md).
 
 ## Acknowledgements
 
