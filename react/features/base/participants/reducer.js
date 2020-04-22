@@ -93,6 +93,7 @@ ReducerRegistry.register('features/base/participants', (state = [], action) => {
                     && p.conference === conference
                     && (conference || p.local)));
     }
+    
     }
 
     return state;
@@ -153,7 +154,6 @@ function _participant(state: Object = {}, action) {
                     newState[key] = participant[key];
                 }
             }
-
             return newState;
         }
         break;
@@ -183,6 +183,7 @@ function _participantJoined({ participant }) {
     const {
         avatarID,
         avatarURL,
+        beerCount, 
         botType,
         connectionStatus,
         dominantSpeaker,
@@ -197,7 +198,7 @@ function _participantJoined({ participant }) {
         role
     } = participant;
     let { conference, id } = participant;
-
+    
     if (local) {
         // conference
         //
@@ -213,6 +214,7 @@ function _participantJoined({ participant }) {
     return {
         avatarID,
         avatarURL,
+        beerCount: beerCount || 0,
         botType,
         conference,
         connectionStatus,

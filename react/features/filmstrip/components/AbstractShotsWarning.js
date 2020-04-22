@@ -2,7 +2,7 @@
 
 import { Component } from 'react';
 
-import { getRaiseHandParticipant, getParticipantDisplayName } from '../../base/participants';
+import { getWantsShotsParticipant, getParticipantDisplayName } from '../../base/participants';
 
 export type Props = {
 
@@ -15,7 +15,7 @@ export type Props = {
     /**
      * True if the hand is raised for this participant.
      */
-    _someoneRaisedTheHand?: boolean
+    _someoneWantsShots?: boolean
 }
 
 /**
@@ -30,7 +30,7 @@ export default class AbstractShotsWarning<P: Props>
      * @inheritdoc
      */
     render() {
-        if (!this.props._someoneRaisedTheHand) {
+        if (!this.props._someoneWantsShots) {
             return null;
         }
 
@@ -54,12 +54,12 @@ export default class AbstractShotsWarning<P: Props>
  * @returns {Object}
  */
 export function _mapStateToProps(state: Object, ownProps: Props): Object {
-    const raiseHandParticipant = getRaiseHandParticipant(state);
-    if(!raiseHandParticipant) return;
-    const displayName = getParticipantDisplayName(state, raiseHandParticipant.id);
+    const wantsShotsParticipant = getWantsShotsParticipant(state);
+    if(!wantsShotsParticipant) return;
+    const displayName = getParticipantDisplayName(state, wantsShotsParticipant.id);
 
     return {
-        _someoneRaisedTheHand: raiseHandParticipant ? true : false,
+        _someoneWantsShots: wantsShotsParticipant ? true : false,
         _shotsEnforcerName: displayName
     };
 }

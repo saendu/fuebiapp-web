@@ -418,6 +418,7 @@
         "passwordRemovedRemotely": "",
         "passwordSetRemotely": "",
         "raisedHand": "{{name}} would like to speak.",
+        "newBeer": "{{name}} opened a new beer! What about you?",
         "somebody": "Somebody",
         "startSilentTitle": "",
         "startSilentDescription": "",
@@ -426,7 +427,8 @@
         "unmute": "",
         "newDeviceCameraTitle": "New camera detected",
         "newDeviceAudioTitle": "New audio device detected",
-        "newDeviceAction": "Use"
+        "newDeviceAction": "Use",
+        "wantsShots": "{{name}} wants shots!"
     },
     "passwordSetRemotely": "set by another member",
     "passwordDigitsOnly": "Up to {{number}} digits",
@@ -560,6 +562,7 @@
             "pip": "Toggle Picture-in-Picture mode",
             "profile": "Edit your profile",
             "raiseHand": "Toggle raise hand",
+            "nextBeer": "Drink next beer",
             "recording": "Toggle recording",
             "remoteMute": "Mute participant",
             "Settings": "Toggle settings",
@@ -600,7 +603,9 @@
         "pip": "Enter Picture-in-Picture mode",
         "profile": "Edit your profile",
         "raiseHand": "Raise / Lower your hand",
-        "haveShots": "Have shots now!",
+        "wantsShots": "Have shots now!",
+        "nextBeer": "Have a next beer",
+        "noWantsShots": "Stop having shots.",
         "raiseYourHand": "Raise your hand",
         "Settings": "Settings",
         "sharedvideo": "Share a YouTube video",
@@ -687,7 +692,7 @@
             "join": "Tap to join",
             "roomname": "Enter room name"
         },
-        "appDescription": "Go ahead, have a remote beer with your friends. In fact, invite everyone you know. {{app}} is a fully encrypted, 100% open source video conferencing solution that you can use all day, every day, for free — with no account needed.",
+        "appDescription": "Go ahead, have a remote beer with your friends. Create a room below by entering any name you like and send the generated link to your friends. https://meet.fuebiapp.com/<room name>",
         "audioVideoSwitch": {
             "audio": "Voice",
             "video": "Video"
@@ -708,6 +713,6 @@
         "roomnameHint": "Enter the name or URL of the room you want to join. You may make a name up, just let the people you are meeting know it so that they enter the same name.",
         "sendFeedback": "Send feedback",
         "terms": "Terms",
-        "title": "Secure way to have a beer with your friends during COVID-19"
+        "title": "Have a remote beer with your friends with Fuebi App"
     }
 }

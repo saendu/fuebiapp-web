@@ -449,6 +449,7 @@
         "passwordRemovedRemotely": "$t(lockRoomPasswordUppercase) von einem anderen Teilnehmer entfernt",
         "passwordSetRemotely": "$t(lockRoomPasswordUppercase) von einem anderen Teilnehmer gesetzt",
         "raisedHand": "{{name}} möchte sprechen.",
+        "newBeer": "{{name}} hat ein neuer Beer geöffnet. Und du?",
         "somebody": "Jemand",
         "startSilentTitle": "Sie sind ohne Audioausgabe beigetreten!",
         "startSilentDescription": "Treten Sie dem Meeting noch einmal bei, um Ihr Audio zu aktivieren",
@@ -457,7 +458,8 @@
         "unmute": "Stummschaltung aufheben",
         "newDeviceCameraTitle": "Neue Kamera erkannt",
         "newDeviceAudioTitle": "Neues Audiogerät erkannt",
-        "newDeviceAction": "Verwenden"
+        "newDeviceAction": "Verwenden",
+        "wantsShots": "{{name}} will eine Runde Shots!"
     },
     "passwordSetRemotely": "von einem anderen Teilnehmer gesetzt",
     "passwordDigitsOnly": "Bis zu {{number}} Ziffern",
@@ -603,6 +605,7 @@
             "privateMessage": "Private Nachricht senden",
             "profile": "Profil bearbeiten",
             "raiseHand": "„Melden“ ein-/ausschalten",
+            "nextBeer": "Nächstes Bier trinken",
             "recording": "Aufzeichnung ein-/ausschalten",
             "remoteMute": "Teilnehmer stummschalten",
             "Settings": "Einstellungen ein-/ausschalten",
@@ -655,6 +658,9 @@
         "privateMessage": "Private Nachricht senden",
         "profile": "Profil bearbeiten",
         "raiseHand": "Hand erheben",
+        "wantsShots": "Shots Runde",
+        "noWantsShots": "Shots Runde aufheben",
+        "nextBeer": "Trinke das nächste Bier",
         "raiseYourHand": "Melden",
         "Settings": "Einstellungen",
         "sharedvideo": "YouTube-Video teilen",
@@ -745,7 +751,7 @@
             "join": "Zum Teilnehmen tippen",
             "roomname": "Konferenzname eingeben"
         },
-        "appDescription": "Auf geht's! Trinke mit deinen Freunden via Fuebi App ein Beer. Oder besser noch: Laden Sie alle ein, die Sie kennen. {{app}} ist eine vollständig verschlüsselte, aus 100% Open-Source-Software bestehende Videokonferenzlösung, die Sie den ganzen Tag kostenlos verwenden können — ohne Registrierung.",
+        "appDescription": "Auf geht's! Trinke mit deinen Freunden via Fuebi App ein Beer. Generiere ganz einfach unten einen Raum, indem du einen beliebigen Namen eingibst. Schicke danach den Link deinen Freunden: https://meet.fuebiapp.com/<room name>",
         "audioVideoSwitch": {
             "audio": "Audio",
             "video": "Video"
@@ -768,7 +774,7 @@
         "roomnameHint": "Name oder URL der Konferenz, der Sie beitreten möchten. Sie können einen Namen erfinden, er muss nur den anderen Teilnehmern übermittelt werden, damit diese der gleichen Konferenz beitreten.",
         "sendFeedback": "Feedback senden",
         "terms": "AGB",
-        "title": "Die sichere Art mit deinen Freunden ein Beer zu trinken, auch während COVID-19"
+        "title": "Trinke mit Fuebi App ein Remote Bier mit deinen Freunden"
         },
     "lonelyMeetingExperience": {
         "button": "Weitere einladen",

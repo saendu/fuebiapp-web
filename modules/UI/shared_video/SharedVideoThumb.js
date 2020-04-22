@@ -1,6 +1,6 @@
 /* global $ */
 
-import SmallVideo from '../videolayout/SmallVideo';
+import { SmallVideo } from '../videolayout/SmallVideo';
 
 const logger = require('jitsi-meet-logger').getLogger(__filename);
 

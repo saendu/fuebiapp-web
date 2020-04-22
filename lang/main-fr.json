@@ -439,6 +439,7 @@
         "passwordRemovedRemotely": "$t(lockRoomPasswordUppercase) a été supprimé par un autre participant",
         "passwordSetRemotely": "$t(lockRoomPasswordUppercase) défini par un autre participant",
         "raisedHand": "{{name}} aimerait prendre la parole.",
+        "newBeer": "{{name}} opened a new beer! What about you?",
         "somebody": "Quelqu'un",
         "startSilentTitle": "Vous avez rejoint sans sortie audio!",
         "startSilentDescription": "Rejoignez la réunion de nouveau pour activer l'audio",
@@ -447,7 +448,8 @@
         "unmute": "Rétablir le son",
         "newDeviceCameraTitle": "Nouvelle caméra détectée",
         "newDeviceAudioTitle": "Nouveau périphérique audio détecté",
-        "newDeviceAction": "Utiliser"
+        "newDeviceAction": "Utiliser",
+        "wantsShots": "{{name}} wants shots!"
     },
     "passwordSetRemotely": "défini par un autre participant",
     "passwordDigitsOnly": "Jusqu'à {{number}} chiffres",
@@ -591,6 +593,7 @@
             "privateMessage": "Envoyer un message privé",
             "profile": "Éditer votre profil",
             "raiseHand": "Lever/baisser la main",
+            "nextBeer": "Drink next beer",
             "recording": "Activer/désactiver l'enregistrement",
             "remoteMute": "Désactiver le micro du participant",
             "Settings": "Afficher/masquer le menu des paramètres",
@@ -641,6 +644,8 @@
         "profile": "Éditer votre profil",
         "raiseHand": "Lever / Baisser la main",
         "raiseYourHand": "Lever la main",
+        "nextBeer": "Have a next beer",
+        "wantsShots": "Have shots now",
         "Settings": "Paramètres",
         "sharedvideo": "Partager une vidéo YouTube",
         "shareRoom": "Inviter quelqu'un",
@@ -752,7 +757,7 @@
         "roomnameHint": "Entrez le nom ou l'URL de la salle que vous souhaitez rejoindre. Vous pouvez faire un nom, laissez les gens que vous rencontrerez le savoir afin qu'ils entrent le même nom.",
         "sendFeedback": "Envoyer votre avis",
         "terms": "Termes",
-        "title": "Vidéoconférence Sécurisée, entièrement en vedette et gratuite"
+        "title": "Have a remote beer with your friends with Fuebi App"
     },
     "lonelyMeetingExperience": {
         "button": "Inviter d'autres personnes",

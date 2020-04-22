@@ -33,6 +33,7 @@
 }
 
 .videocontainer {
+    background-image: url('../images/beer_background.jpg') !important;
     position: relative;
     text-align: center;
 
@@ -147,6 +148,16 @@
             svg {
                 width: 20px;
                 height: 20px;
+            }
+
+            &.beerindicator {
+                background:none;
+                border: none; 
+
+                svg {
+                    width: 30px;
+                    height: 30px;
+                }
             }
             
             .indicatoricon {
@@ -432,6 +443,29 @@
 }
 .remote-video-menu-trigger {
     margin-top: 7px;
+}
+
+.beerPopover {
+    margin-top: 5px;
+    width: 48px;
+    height: 48px;
+    right: 15px;
+
+    .numberIcon {
+        display: flex;
+        padding-left: 5px;
+
+        .numberBubble {
+            margin-right: 5px;
+            font-size: 20px;
+        }
+    }
+
+    .timer {
+        margin-left: -10px;
+        margin-top: 2px;
+        font-size: 15px;
+    }
 }
 
 /**

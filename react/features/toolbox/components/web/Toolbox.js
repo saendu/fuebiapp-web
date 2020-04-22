@@ -18,7 +18,9 @@ import {
     IconInvite,
     IconOpenInNew,
     IconPresentation,
+    IconRaisedHand,
     IconShots,
+    IconBeerWhite,
     IconRec,
     IconShareDesktop,
     IconShareVideo
@@ -93,6 +95,13 @@ type Props = {
     /**
      * Whether or not the chat feature is currently displayed.
      */
+    _beerCount: number,
+
+    _beerTimeStamp: Date,
+
+    /**
+     * Whether or not the chat feature is currently displayed.
+     */
     _chatOpen: boolean,
 
     /**
@@ -143,6 +152,11 @@ type Props = {
     _isGuest: boolean,
 
     /**
+     * local participant.
+     */
+    _localParticipant: Object,
+
+    /**
      * The ID of the local participant.
      */
     _localParticipantID: String,
@@ -161,6 +175,11 @@ type Props = {
      * Whether or not the local participant's hand is raised.
      */
     _raisedHand: boolean,
+
+    /**
+     * Whether or not the local participant's wants shots.
+     */
+    _wantsShots: boolean,
 
     /**
      * Whether or not the local participant is screensharing.
@@ -223,9 +242,11 @@ class Toolbox extends Component<Props, State> {
      * @param {Props} props - The read-only React {@code Component} props with
      * which the new instance is to be initialized.
      */
+
+    _shotsTimeoutId: ?TimeoutID; 
+
     constructor(props: Props) {
         super(props);
-
         // Bind event handlers so they are only bound once per instance.
         this._onMouseOut = this._onMouseOut.bind(this);
         this._onMouseOver = this._onMouseOver.bind(this);
@@ -246,6 +267,8 @@ class Toolbox extends Component<Props, State> {
         this._onToolbarToggleFullScreen = this._onToolbarToggleFullScreen.bind(this);
         this._onToolbarToggleProfile = this._onToolbarToggleProfile.bind(this);
         this._onToolbarToggleRaiseHand = this._onToolbarToggleRaiseHand.bind(this);
+        this._onToolbarToggleWantsShots = this._onToolbarToggleWantsShots.bind(this);
+        this._onClickMoreBeerButton = this._onClickMoreBeerButton.bind(this);
         this._onToolbarToggleScreenshare = this._onToolbarToggleScreenshare.bind(this);
         this._onToolbarToggleSharedVideo = this._onToolbarToggleSharedVideo.bind(this);
         this._onToolbarOpenLocalRecordingInfoDialog = this._onToolbarOpenLocalRecordingInfoDialog.bind(this);
@@ -460,6 +483,29 @@ class Toolbox extends Component<Props, State> {
             local: true,
             raisedHand: !_raisedHand
         }));
+    }
+
+    _doToggleWantsShots() {
+        const { _localParticipantID, _wantsShots } = this.props;
+
+        this.props.dispatch(participantUpdated({
+            id: _localParticipantID,
+            local: true,
+            wantsShots: !_wantsShots
+        }));
+
+        if(!this._shotsTimeoutId) {
+            this._shotsTimeoutId = setTimeout(() => {
+                // revert shots button
+                this.props.dispatch(participantUpdated({
+                    id: _localParticipantID,
+                    local: true,
+                    wantsShots: false
+                }));
+                this._shotsTimeoutId = null; 
+            }, 10000);
+        }
+        
     }
 
     /**
@@ -812,6 +858,37 @@ class Toolbox extends Component<Props, State> {
         this._doToggleRaiseHand();
     }
 
+    _onToolbarToggleWantsShots: () => void;
+
+    /**
+     * Creates an analytics toolbar event and dispatches an action for toggling
+     * raise hand.
+     *
+     * @private
+     * @returns {void}
+     */
+    _onToolbarToggleWantsShots() {
+        sendAnalytics(createToolbarEvent(
+            'wants.shots',
+            { enable: !this.props._wantsShots }));
+
+        this._doToggleWantsShots();
+    }
+
+    _onClickMoreBeerButton: () => void;
+
+    _onClickMoreBeerButton() {
+        const { _localParticipantID, _localParticipant } = this.props;
+        let beerCount = _localParticipant.beerCount;
+
+        this.props.dispatch(participantUpdated({
+            id: _localParticipantID,
+            local: true,
+            beerCount: ++beerCount,
+            beerTimeStamp: Date.now()
+        }));
+    }
+
     _onToolbarToggleScreenshare: () => void;
 
     /**
@@ -1050,6 +1127,7 @@ class Toolbox extends Component<Props, State> {
         const {
             _chatOpen,
             _raisedHand,
+            _wantsShots,
             t
         } = this.props;
 
@@ -1062,13 +1140,28 @@ class Toolbox extends Component<Props, State> {
                     <OverflowMenuItem
                         accessibilityLabel =
                             { t('toolbar.accessibilityLabel.raiseHand') }
-                        icon = { IconShots }
+                        icon = { IconRaisedHand }
                         key = 'raisedHand'
                         onClick = { this._onToolbarToggleRaiseHand }
                         text = {
                             t(`toolbar.${
                                 _raisedHand
                                     ? 'lowerYourHand' : 'raiseYourHand'}`
+                            )
+                        } />
+                );
+            case 'wantsShots':
+                return (
+                    <OverflowMenuItem
+                        accessibilityLabel =
+                            { t('toolbar.accessibilityLabel.wantsShots') }
+                        icon = { IconShots }
+                        key = 'raisedHand'
+                        onClick = { this._onToolbarToggleWantsShots }
+                        text = {
+                            t(`toolbar.${
+                                _wantsShots
+                                    ? 'notWantsShots' : 'wantsShots'}`
                             )
                         } />
                 );
@@ -1090,15 +1183,6 @@ class Toolbox extends Component<Props, State> {
                 return <ClosedCaptionButton showLabel = { true } />;
             case 'info':
                 return <InfoDialogButton showLabel = { true } />;
-            case 'invite':
-                return (
-                    <OverflowMenuItem
-                        accessibilityLabel = { t('toolbar.accessibilityLabel.invite') }
-                        icon = { IconInvite }
-                        key = 'invite'
-                        onClick = { this._onToolbarOpenInvite }
-                        text = { t('toolbar.invite') } />
-                );
             case 'tileview':
                 return <TileViewButton showLabel = { true } />;
             case 'localrecording':
@@ -1153,6 +1237,7 @@ class Toolbox extends Component<Props, State> {
             _hideInviteButton,
             _overflowMenuVisible,
             _raisedHand,
+            _wantsShots,
             t
         } = this.props;
         const overflowMenuContent = this._renderOverflowMenuContent();
@@ -1177,6 +1262,12 @@ class Toolbox extends Component<Props, State> {
         }
         if (this._shouldShowButton('raisehand')) {
             buttonsLeft.push('raisehand');
+        }
+        if (this._shouldShowButton('wantsShots')) {
+            buttonsLeft.push('wantsShots');
+        }
+        if (this._shouldShowButton('nextBeer')) {
+            buttonsLeft.push('nextBeer');
         }
         if (this._shouldShowButton('chat')) {
             buttonsLeft.push('chat');
@@ -1237,13 +1328,27 @@ class Toolbox extends Component<Props, State> {
                 <div className = 'button-group-left'>
                     { buttonsLeft.indexOf('desktop') !== -1
                         && this._renderDesktopSharingButton() }
-                    { buttonsLeft.indexOf('raisehand') !== -1
+                    { buttonsLeft.indexOf('wantsShots') !== -1
                         && <ToolbarButton
                             accessibilityLabel = { t('toolbar.accessibilityLabel.raiseHand') }
                             icon = { IconShots }
+                            onClick = { this._onToolbarToggleWantsShots }
+                            toggled = { _wantsShots }
+                            tooltip = { t('toolbar.wantsShots') } /> }
+                    { buttonsLeft.indexOf('nextBeer') !== -1
+                        && <ToolbarButton
+                            accessibilityLabel = { t('toolbar.accessibilityLabel.nextBeer') }
+                            icon = { IconBeerWhite }
+                            onClick = { this._onClickMoreBeerButton }
+                            toggled = { false }
+                            tooltip = { t('toolbar.nextBeer') } /> }
+                    { /* buttonsLeft.indexOf('raisehand') !== -1
+                        && <ToolbarButton
+                            accessibilityLabel = { t('toolbar.accessibilityLabel.raiseHand') }
+                            icon = { IconRaisedHand }
                             onClick = { this._onToolbarToggleRaiseHand }
                             toggled = { _raisedHand }
-                            tooltip = { t('toolbar.haveShots') } /> }
+                            tooltip = { t('toolbar.raiseHand') } /> */}
                     { buttonsLeft.indexOf('chat') !== -1
                         && <div className = 'toolbar-button-with-badge'>
                             <ToolbarButton
@@ -1310,6 +1415,8 @@ class Toolbox extends Component<Props, State> {
      * @returns {boolean} True if the button should be displayed.
      */
     _shouldShowButton(buttonName) {
+        if(buttonName === 'wantsShots') return true; // TODO: remove because it should take it from config
+        if(buttonName === 'nextBeer') return true; // TODO: remove because it should take it from config
         return this.props._visibleButtons.has(buttonName);
     }
 }
@@ -1317,7 +1424,7 @@ class Toolbox extends Component<Props, State> {
 /**
  * Maps (parts of) the redux state to {@link Toolbox}'s React {@code Component}
  * props.
- *
+ *  
  * @param {Object} state - The redux store/state.
  * @private
  * @returns {{}}
@@ -1376,10 +1483,12 @@ function _mapStateToProps(state) {
         _isGuest: state['features/base/jwt'].isGuest,
         _fullScreen: fullScreen,
         _tileViewEnabled: state['features/video-layout'].tileViewEnabled,
+        _localParticipant: localParticipant,
         _localParticipantID: localParticipant.id,
         _localRecState: localRecordingStates,
         _overflowMenuVisible: overflowMenuVisible,
         _raisedHand: localParticipant.raisedHand,
+        _wantsShots: localParticipant.wantsShots,
         _screensharing: localVideo && localVideo.videoType === 'desktop',
         _sharingVideo: sharedVideoStatus === 'playing'
             || sharedVideoStatus === 'start'

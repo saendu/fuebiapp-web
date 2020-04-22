@@ -192,6 +192,15 @@ class WelcomePage extends AbstractWelcomePage {
                                 { app: APP_NAME }) }
                         </p>
                     </div>
+                    <div className='header-features'>
+                        <h3>Features in progress</h3>
+                        <p>
+                        <ul>
+                            <li>Iniciate next round</li>
+                            <li>Poke someone to have another drink</li>
+                        </ul>
+                        </p>
+                    </div>
                     <div id = 'enter_room'>
                         <div className = 'enter-room-input-container'>
                             <div className = 'enter-room-title'>
@@ -204,7 +213,7 @@ class WelcomePage extends AbstractWelcomePage {
                                     id = 'enter_room_field'
                                     onChange = { this._onRoomChange }
                                     pattern = { ROOM_NAME_VALIDATE_PATTERN_STR }
-                                    placeholder = { this.state.roomPlaceholder }
+                                    placeholder = { '<Room Name>' }
                                     ref = { this._setRoomInputRef }
                                     title = { t('welcomepage.roomNameAllowedChars') }
                                     type = 'text'

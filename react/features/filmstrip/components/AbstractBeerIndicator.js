@@ -2,26 +2,15 @@
 
 import { Component } from 'react';
 
-import { getParticipantById } from '../../base/participants';
-
 export type Props = {
 
-    /**
-     * The participant id who we want to render the raised hand indicator
-     * for.
-     */
-    participantId: string,
-
-    /**
-     * True if the hand is raised for this participant.
-     */
-    _wantsShots?: boolean
+    beerCount: number;
 }
 
 /**
  * Implements an abstract class for the RaisedHandIndicator component.
  */
-export default class AbstractShotsIndicator<P: Props>
+export default class AbstractBeerIndicator<P: Props>
     extends Component<P> {
 
     /**
@@ -30,10 +19,6 @@ export default class AbstractShotsIndicator<P: Props>
      * @inheritdoc
      */
     render() {
-        if (!this.props._wantsShots) {
-            return null;
-        }
-
         return this._renderIndicator();
     }
 
@@ -54,8 +39,7 @@ export default class AbstractShotsIndicator<P: Props>
  * @returns {Object}
  */
 export function _mapStateToProps(state: Object, ownProps: Props): Object {
-    const participant = getParticipantById(state, ownProps.participantId);
     return {
-        _wantsShots: participant && participant.wantsShots
+        beerCount: state.beerCounter
     };
 }

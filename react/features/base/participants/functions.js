@@ -389,3 +389,16 @@ export function getRaiseHandParticipant(stateful: Object | Function) {
 
     return raiseHandParticipant;
 }
+
+export function getWantsShotsParticipant(stateful: Object | Function) {
+    const participants = _getAllParticipants(stateful);
+
+    let wantsShotsParticipant = null; 
+    participants.forEach(p => {
+        if (p.hasOwnProperty('wantsShots')) {
+            if(p.wantsShots === true) wantsShotsParticipant = p; 
+        }
+    });
+
+    return wantsShotsParticipant;
+}

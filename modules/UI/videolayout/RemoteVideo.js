@@ -18,7 +18,8 @@ import {
 import { PresenceLabel } from '../../../react/features/presence-status';
 import {
     REMOTE_CONTROL_MENU_STATES,
-    RemoteVideoMenuTriggerButton
+    RemoteVideoMenuTriggerButton,
+    BeerPopover
 } from '../../../react/features/remote-video-menu';
 import { LAYOUTS, getCurrentLayout } from '../../../react/features/video-layout';
 /* eslint-enable no-unused-vars */
@@ -26,7 +27,7 @@ import { LAYOUTS, getCurrentLayout } from '../../../react/features/video-layout'
 const logger = require('jitsi-meet-logger').getLogger(__filename);
 
 
-import SmallVideo from './SmallVideo';
+import { SmallVideo } from './SmallVideo';
 import UIUtils from '../util/UIUtil';
 
 /**
@@ -190,6 +191,7 @@ export default class RemoteVideo extends SmallVideo {
         const onVolumeChange
             = APP.store.getState()['features/base/config'].startSilent ? undefined : this._setAudioVolume;
         const participantID = this.id;
+        
         const currentLayout = getCurrentLayout(APP.store.getState());
         let remoteMenuPosition;
 
@@ -205,7 +207,7 @@ export default class RemoteVideo extends SmallVideo {
             <Provider store = { APP.store }>
                 <I18nextProvider i18n = { i18next }>
                     <AtlasKitThemeProvider mode = 'dark'>
-                        <RemoteVideoMenuTriggerButton
+                        <BeerPopover
                             initialVolumeValue = { initialVolumeValue }
                             isAudioMuted = { this.isAudioMuted }
                             menuPosition = { remoteMenuPosition }

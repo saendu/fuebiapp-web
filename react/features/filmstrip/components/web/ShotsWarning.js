@@ -41,16 +41,13 @@ class ShotsWarning extends AbstractShotsWarning<Props> {
     
     _renderIndicator() {
         const Icon = <WarningIcon label="Warning icon" secondaryColor="inherit" />;
-        const WarningBanner = ({ isOpen = true }) => (
+        return (
             <div>
-                <Banner icon={Icon} isOpen={isOpen} appearance="error">
+                <Banner icon={Icon} isOpen={true} appearance="error">
                     {this.props._shotsEnforcerName} wants everyone to take SHOTS!
                 </Banner>
-                <div class="shots-clip"><img src="images/shots.gif"/></div>
+                <div className="shots-clip"><img src="images/shots.gif"/></div>
             </div>
-          );
-        return (
-            <WarningBanner isOpen={true}/>
         );
     }
 }
