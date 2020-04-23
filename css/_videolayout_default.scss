@@ -37,6 +37,16 @@
     position: relative;
     text-align: center;
 
+    &.turnhalle {
+        background-image: url('../images/turnhalle.jpg') !important;
+        background-size: cover !important;
+    }
+
+    &.trammdepot {
+        background-image: url('../images/trammdepot.jpg') !important;
+        background-size: cover !important;
+    }
+
     &__background {
         @include topLeft();
         background-color: black;

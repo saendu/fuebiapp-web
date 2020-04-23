@@ -191,7 +191,7 @@ class Conference extends AbstractConference<Props, *> {
                 <Notice />
                 <Subject />
                 <div id = 'videospace'>
-                    <LargeVideo />
+                    <LargeVideo roomName = { this.props._roomName } />
                     { hideVideoQualityLabel
                         || <Labels /> }
                     <Filmstrip filmstripOnly = { filmstripOnly } />

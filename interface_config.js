@@ -55,6 +55,10 @@ var interfaceConfig = {
         'e2ee', 'wantsShots'
     ],
 
+    LOCATIONS: [
+        'trunhalle', 'trammdepot'
+    ],
+
     SETTINGS_SECTIONS: [ 'devices', 'language', 'moderator', 'profile', 'calendar' ],
 
     // Determines how the video would fit the screen. 'both' would fit the whole

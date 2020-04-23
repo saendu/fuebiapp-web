@@ -14,7 +14,8 @@ type Props = {
      * Used to determine the value of the autoplay attribute of the underlying
      * video element.
      */
-    _noAutoPlayVideo: boolean
+    _noAutoPlayVideo: boolean,
+    _roomName: string
 }
 
 /**
@@ -31,9 +32,26 @@ class LargeVideo extends Component<Props> {
      * @returns {React$Element}
      */
     render() {
+        // TODO Make this nice
+        let className = '';
+        const trammdepotName = 'trammdepot';
+        const turnhalleName = 'turnhalle';
+        const roomName = !!this.props._roomName ? this.props._roomName.toString().toLowerCase() : '';
+
+        switch (roomName) {
+            case trammdepotName:
+                className = trammdepotName;
+                break;
+            case turnhalleName:
+                className = turnhalleName;
+                break;
+            default:
+                break;
+        }
+
         return (
             <div
-                className = 'videocontainer'
+                className = {`videocontainer ${className}`}
                 id = 'largeVideoContainer'>
                 <div id = 'sharedVideo'>
                     <div id = 'sharedVideoIFrame' />
@@ -84,11 +102,12 @@ class LargeVideo extends Component<Props> {
  *     _noAutoPlayVideo: boolean
  * }}
  */
-function _mapStateToProps(state) {
+function _mapStateToProps(state, ownProps) {
     const testingConfig = state['features/base/config'].testing;
 
     return {
-        _noAutoPlayVideo: testingConfig?.noAutoPlayVideo
+        _noAutoPlayVideo: testingConfig?.noAutoPlayVideo,
+        _roomName: ownProps.roomName
     };
 }
 
