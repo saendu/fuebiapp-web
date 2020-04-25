@@ -56,7 +56,21 @@ var interfaceConfig = {
     ],
 
     LOCATIONS: [
-        'trunhalle', 'trammdepot'
+        {
+            name: 'turnhalle', url: '../images/turnhalle.jpg', size: 'cover'
+        },
+        {
+            name: 'trammdepot', url: '../images/trammdepot.jpg', size: 'cover'
+        },
+        {
+            name: 'der-pausenraum-im-zweiten-stock', url: '../images/pausenraum.jpg', size: 'cover'
+        },
+        {
+            name: 'microfast', url: '../images/microfast.jpg', size: 'auto'
+        },
+        {
+            name: 'test', url: '../images/microfast.jpg', size: 'auto'
+        },
     ],
 
     SETTINGS_SECTIONS: [ 'devices', 'language', 'moderator', 'profile', 'calendar' ],

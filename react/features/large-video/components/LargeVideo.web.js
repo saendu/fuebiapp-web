@@ -32,34 +32,25 @@ class LargeVideo extends Component<Props> {
      * @returns {React$Element}
      */
     render() {
-        // TODO Make this nice
-        let className = '';
-        const trammdepotName = 'trammdepot';
-        const turnhalleName = 'turnhalle';
-        const srfName = 'der-pausenraum-im-zweiten-stock';
-        const microfastName = 'microfast';
+        const locations = interfaceConfig.LOCATIONS;
         const roomName = !!this.props._roomName ? this.props._roomName.toString().toLowerCase() : '';
 
-        switch (roomName) {
-            case trammdepotName:
-                className = trammdepotName;
-                break;
-            case turnhalleName:
-                className = turnhalleName;
-                break;
-            case srfName:
-                className = srfName;
-                break;
-            case microfastName:
-                className = microfastName;
-                break;
-            default:
-                break;
-        }
+        let backgroundStyle = {
+            backgroundImage: `url(../images/beer_background.jpg)`,
+            backgroundSize: 'cover'
+        };
+        
+        locations.forEach(l => {
+            if(l.name == roomName) {
+                backgroundStyle.backgroundImage = `url(${l.url})`;
+                backgroundStyle.backgroundSize = l.size
+            }
+        });
 
         return (
             <div
-                className = {`videocontainer ${className}`}
+                className = 'videocontainer'
+                style = {backgroundStyle}
                 id = 'largeVideoContainer'>
                 <div id = 'sharedVideo'>
                     <div id = 'sharedVideoIFrame' />
