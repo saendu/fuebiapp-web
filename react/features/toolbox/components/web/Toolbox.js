@@ -373,7 +373,10 @@ class Toolbox extends Component<Props, State> {
      */
     render() {
         const { _visible, _visibleButtons } = this.props;
-        const rootClassNames = `new-toolbox ${_visible ? 'visible' : ''} ${
+        // Always show toolbar
+        // const rootClassNames = `new-toolbox ${_visible ? 'visible' : 'visible'} ${
+        //     _visibleButtons.size ? '' : 'no-buttons'}`;
+        const rootClassNames = `new-toolbox visible ${
             _visibleButtons.size ? '' : 'no-buttons'}`;
 
         return (
