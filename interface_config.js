@@ -69,7 +69,7 @@ var interfaceConfig = {
             name: 'microfast', url: '../images/microfast.jpg', size: 'auto'
         },
         {
-            name: 'test', url: '../images/microfast.jpg', size: 'auto'
+            name: 'rgs', url: './images/meister.jpg', size: 'auto'
         },
     ],
 
