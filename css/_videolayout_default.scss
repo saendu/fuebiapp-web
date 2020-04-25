@@ -47,6 +47,15 @@
         background-size: cover !important;
     }
 
+    &.der-pausenraum-im-zweiten-stock {
+        background-image: url('../images/pausenraum.jpg') !important;
+        background-size: cover !important;
+    }
+
+    &.microfast {
+        background-image: url('../images/microfast.jpg') !important;
+    }
+
     &__background {
         @include topLeft();
         background-color: black;

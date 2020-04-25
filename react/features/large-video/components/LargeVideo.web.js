@@ -36,6 +36,8 @@ class LargeVideo extends Component<Props> {
         let className = '';
         const trammdepotName = 'trammdepot';
         const turnhalleName = 'turnhalle';
+        const srfName = 'der-pausenraum-im-zweiten-stock';
+        const microfastName = 'microfast';
         const roomName = !!this.props._roomName ? this.props._roomName.toString().toLowerCase() : '';
 
         switch (roomName) {
@@ -44,6 +46,12 @@ class LargeVideo extends Component<Props> {
                 break;
             case turnhalleName:
                 className = turnhalleName;
+                break;
+            case srfName:
+                className = srfName;
+                break;
+            case microfastName:
+                className = microfastName;
                 break;
             default:
                 break;
