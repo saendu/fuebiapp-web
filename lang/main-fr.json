@@ -279,7 +279,8 @@
         "WaitForHostMsgWOk": "La conférence <b>{{room}}</b> n'a pas encore commencé. Si vous en êtes l'hôte, veuillez appuyer sur Ok pour vous authentifier. Sinon, veuillez attendre son arrivée.",
         "WaitingForHost": "En attente de l'hôte ...",
         "Yes": "Oui",
-        "yourEntireScreen": "Votre écran entier"
+        "yourEntireScreen": "Votre écran entier",
+        "poke": "Poke to drink!"
     },
     "dialOut": {
         "statusMessage": "est maintenant {{status}}"
@@ -459,7 +460,8 @@
         "newDeviceAction": "Utiliser",
         "wantsShots": "{{name}} wants shots!",
         "newRound": "{{name}} starts a new round!",
-        "rejectedNewRound": "{{name}} rejected your new round."
+        "rejectedNewRound": "{{name}} rejected to open a new beer...",
+        "poke": "{{name}} wants that you have a beer!"
     },
     "passwordSetRemotely": "défini par un autre participant",
     "passwordDigitsOnly": "Jusqu'à {{number}} chiffres",

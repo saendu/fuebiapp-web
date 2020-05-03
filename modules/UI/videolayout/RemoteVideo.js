@@ -217,7 +217,7 @@ export default class RemoteVideo extends SmallVideo {
                             onVolumeChange = { onVolumeChange }
                             participantID = { participantID }
                             remoteControlState = { remoteControlState } 
-                            hoverDisabled = { true } />
+                            hoverDisabled = { false } />
                     </AtlasKitThemeProvider>
                 </I18nextProvider>
             </Provider>,

@@ -288,7 +288,8 @@
         "WaitForHostMsgWOk": "The conference <b>{{room}}</b> has not yet started. If you are the host then please press Ok to authenticate. Otherwise, please wait for the host to arrive.",
         "WaitingForHost": "Waiting for the host ...",
         "Yes": "Yes",
-        "yourEntireScreen": "Your entire screen"
+        "yourEntireScreen": "Your entire screen",
+        "poke": "Suuf eine!"
     },
     "dialOut": {
         "statusMessage": "is now {{status}}"
@@ -474,7 +475,8 @@
         "oldElectronClientDescription3": " now!",
         "wantsShots": "{{name}} wants shots!",
         "newRound": "{{name}} starts a new round!",
-        "rejectedNewRound": "{{name}} rejected your new round."
+        "rejectedNewRound": "{{name}} rejected to open a new beer...",
+        "poke": "{{name}} wants that you have a beer!"
     },
     "passwordSetRemotely": "set by another participant",
     "passwordDigitsOnly": "Up to {{number}} digits",

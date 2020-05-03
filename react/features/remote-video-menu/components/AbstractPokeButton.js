@@ -58,6 +58,8 @@ export default class AbstractPokeButton extends AbstractButton<Props, State> {
      */
     _handleClick() {
         const { dispatch, participantID } = this.props;
+        const participantToPoke = [];
+        participantToPoke.push({id: participantID, timeStamp: Date.now()})
 
         sendAnalytics(createRemoteVideoMenuButtonEvent(
             'poke.button',
@@ -68,7 +70,7 @@ export default class AbstractPokeButton extends AbstractButton<Props, State> {
         dispatch(participantUpdated({
             id: participantID,
             local: true,
-            newRound: Date.now()
+            participantToPoke: JSON.stringify(participantToPoke)
         }));
 
     }
@@ -104,9 +106,11 @@ export default class AbstractPokeButton extends AbstractButton<Props, State> {
  */
 export function _mapStateToProps(state: Object, ownProps: Props) {
     const tracks = state['features/base/tracks'];
+    const participants = state['features/base/participants'];
 
     return {
         _audioTrackMuted: isRemoteTrackMuted(
-            tracks, MEDIA_TYPE.AUDIO, ownProps.participantID)
+            tracks, MEDIA_TYPE.AUDIO, ownProps.participantID),
+        _participants: participants
     };
 }

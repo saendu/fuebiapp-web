@@ -69,7 +69,7 @@ class Notification extends AbstractNotification<Props> {
                     description = { this._renderDescription() }
                     icon = { this._mapAppearanceToIcon() }
                     id = { uid }
-                    isDismissAllowed = { isDismissAllowed }
+                    isDismissAllowed = { false }
                     onDismissed = { onDismissed }
                     title = { title || t(titleKey, titleArguments) } />
                 </div>

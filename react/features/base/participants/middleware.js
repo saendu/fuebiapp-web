@@ -249,6 +249,12 @@ StateListenerRegistry.register(
                             break;
                         }
 
+                        case 'participantToPoke': {
+                            _participantToPoke(
+                                store, conference, participant.getId(), newValue);
+                            break;
+                        }
+
                     default:
 
                         // Ignore for now.
@@ -372,7 +378,8 @@ function _participantJoinedOrUpdated({ dispatch, getState }, next, action) {
             beerCount, 
             beerTimeStamp, 
             newRound,
-            rejectedNewRoundCount
+            rejectedNewRoundCount,
+            participantToPoke
         } 
     } = action;
     // Send an external update of the local participant's raised hand state
@@ -445,6 +452,18 @@ function _participantJoinedOrUpdated({ dispatch, getState }, next, action) {
                 && conference.setLocalParticipantProperty(
                     'rejectedNewRoundCount',
                     rejectedNewRoundCount);
+        }
+    }
+
+    // Update Local rejectedNewRoundCount
+    if (typeof participantToPoke !== 'undefined') {
+        if (local) {
+            const { conference } = getState()['features/base/conference'];
+
+            conference
+                && conference.setLocalParticipantProperty(
+                    'participantToPoke',
+                    participantToPoke);
         }
     }
 
@@ -625,7 +644,7 @@ function _rejectedNewRoundCount({ dispatch, getState }, conference, participantI
     dispatch(participantUpdated({
         conference,
         id: pid,
-        newRoundCount: rejectCount
+        rejectCount
     }));
 
     // NOTIFY OTHERS
@@ -639,6 +658,33 @@ function _rejectedNewRoundCount({ dispatch, getState }, conference, participantI
         noActions: true
     }, 4000));
     
+}
+
+/**
+ * Handles poking of others
+ *
+ * @param {Function} dispatch - The Redux dispatch function.
+ * @param {Object} conference - The conference for which we got an update.
+ * @param {string?} participantId - The ID of the participant from which we got an update. If undefined,
+ * we update the local participant.
+ * @param {boolean} newValue - The new value of the raise hand status.
+ * @returns {void}
+ */
+
+function _participantToPoke({ dispatch, getState }, conference, participantId, newValue) {    
+    const participantToPoke = JSON.parse(newValue);
+    const localParticipantId = getLocalParticipant(getState()).id; 
+
+    const isMe = participantToPoke.filter(p => p.id === localParticipantId).length > 0;
+    if(isMe) {
+        dispatch(showAssetNotification({
+            titleArguments: {
+                name: getParticipantDisplayName(getState, participantId)
+            },
+            titleKey: 'notify.poke',
+            assetLink: '../images/pouringBeer.gif'
+        }, NOTIFICATION_TIMEOUT));
+    }
 }
 
 /**

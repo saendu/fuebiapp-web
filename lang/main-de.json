@@ -283,7 +283,8 @@
         "WaitForHostMsgWOk": "Die Konferenz <b>{{room}}</b> wurde noch nicht gestartet. Wenn Sie der Organisator sind, drücken Sie zum Authentifizieren auf OK. Warten Sie andernfalls, bis der Organisator erscheint.",
         "WaitingForHost": "Warten auf den Organisator...",
         "Yes": "Ja",
-        "yourEntireScreen": "Ganzer Bildschirm"
+        "yourEntireScreen": "Ganzer Bildschirm",
+        "poke": "Suuf eine!"
     },
     "dialOut": {
         "statusMessage": "ist jetzt {{status}}"
@@ -463,7 +464,8 @@
         "newDeviceAction": "Verwenden",
         "wantsShots": "{{name}} will eine Runde Shots!",
         "newRound": "{{name}} startet eine neue Runde!",
-        "rejectedNewRound": "{{name}} will bei der neuen Runde nicht mitmachen."
+        "rejectedNewRound": "{{name}} will kein neues Bier...",
+        "poke": "{{name}} will das du ein Bier nimmst!"
     },
     "passwordSetRemotely": "von einem anderen Teilnehmer gesetzt",
     "passwordDigitsOnly": "Bis zu {{number}} Ziffern",
