@@ -6,6 +6,7 @@ body.welcome-page {
 .welcome {
     //background-image: $welcomePageBackground;
     background-image: url('../images/beer_background.jpg');
+    background-size: cover;
     display: flex;
     flex-direction: column;
     font-family: $welcomePageFontFamily;

@@ -934,17 +934,3 @@ export class SmallVideo {
         }
     }
 }
-
-/**
- 
- 
-function _mapStateToProps(state, ownProps) {
-    console.log('HEEEERE')
-
-    return {
-    };
-}
-
-export default connect(_mapStateToProps)(SmallVideo);
-
-*/

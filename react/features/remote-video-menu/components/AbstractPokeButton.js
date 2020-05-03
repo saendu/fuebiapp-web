@@ -5,15 +5,16 @@ import {
     sendAnalytics
 } from '../../analytics';
 import { openDialog } from '../../base/dialog';
-import { IconMicDisabled } from '../../base/icons';
+import { IconPoke } from '../../base/icons';
 import { MEDIA_TYPE } from '../../base/media';
 import {
     AbstractButton,
     type AbstractButtonProps
 } from '../../base/toolbox';
 import { isRemoteTrackMuted } from '../../base/tracks';
-
-import { MuteRemoteParticipantDialog } from '.';
+import {
+    participantUpdated
+} from '../../../features/base/participants';
 
 export type Props = AbstractButtonProps & {
 
@@ -43,9 +44,9 @@ export type Props = AbstractButtonProps & {
 /**
  * An abstract remote video menu button which mutes the remote participant.
  */
-export default class AbstractPokeButton extends AbstractButton<Props, *> {
+export default class AbstractPokeButton extends AbstractButton<Props, State> {
     accessibilityLabel = 'toolbar.accessibilityLabel.remoteMute';
-    icon = IconMicDisabled;
+    icon = IconPoke;
     label = 'videothumbnail.domute';
     toggledLabel = 'videothumbnail.muted';
 
@@ -64,7 +65,12 @@ export default class AbstractPokeButton extends AbstractButton<Props, *> {
                 'participant_id': participantID
             }));
 
-        dispatch(openDialog(MuteRemoteParticipantDialog, { participantID }));
+        dispatch(participantUpdated({
+            id: participantID,
+            local: true,
+            newRound: Date.now()
+        }));
+
     }
 
     /**

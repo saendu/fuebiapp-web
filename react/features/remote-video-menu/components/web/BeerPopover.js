@@ -93,7 +93,9 @@ type Props = {
     /**
      * The current state of the participant's remote control session.
      */
-    remoteControlState: number
+    remoteControlState: number,
+
+    hoverDisabled: boolean
 };
 
 /**
@@ -132,7 +134,7 @@ class BeerPopover extends Component<Props, *> {
      * @returns {ReactElement}
      */
     render() {
-        // TODO: CLEAN UP UNUSED STUFF
+        const { hoverDisabled } = this.props; 
         const content = this._renderRemoteVideoMenu();
 
         if (!content) {
@@ -140,6 +142,19 @@ class BeerPopover extends Component<Props, *> {
         }
 
         return (
+            hoverDisabled ? 
+            <div
+                className = 'popover-trigger remote-video-menu-trigger beerPopover'>
+                <NumberIcon
+                    size = '2em'
+                    src = { IconBeer }
+                    title = 'Beer stats' 
+                    number = {this.props._beerCount} />
+                <BeerTimer
+                    beerCount = {this.props._beerCount}
+                    beerTimeStamp = {this.props._beerTimeStamp}
+                />
+            </div> :
             <Popover
                 content = { content }
                 onPopoverOpen = { this._onShowRemoteMenu }
@@ -196,17 +211,35 @@ class BeerPopover extends Component<Props, *> {
         
         buttons.push(
             <PokeButton
-                isAudioMuted = { isAudioMuted }
                 key = 'poke'
-                participantID = { participantID } />
+                participantID = { participantID }
+                clickTimeout = { '5000' }
+
+            />
         );
 
-        if (!_disableKick) {
-            buttons.push(
-                <KickButton
-                    key = 'kick'
-                    participantID = { participantID } />
-            );
+        if (_isModerator) {
+            if (!_disableRemoteMute) {
+                buttons.push(
+                    <MuteButton
+                        isAudioMuted = { isAudioMuted }
+                        key = 'mute'
+                        participantID = { participantID } />
+                );
+                buttons.push(
+                    <MuteEveryoneElseButton
+                        key = 'mute-others'
+                        participantID = { participantID } />
+                );
+            }
+
+            if (!_disableKick) {
+                buttons.push(
+                    <KickButton
+                        key = 'kick'
+                        participantID = { participantID } />
+                );
+            }
         }
         
 

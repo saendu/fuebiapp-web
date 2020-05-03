@@ -17,6 +17,7 @@ import {
     IconFullScreen,
     IconInvite,
     IconOpenInNew,
+    IconNextRound,
     IconPresentation,
     IconRaisedHand,
     IconShots,
@@ -221,7 +222,8 @@ type State = {
     /**
      * The width of the browser's window.
      */
-    windowWidth: number
+    windowWidth: number,
+    nextRoundButtonLocked: boolean
 };
 
 declare var APP: Object;
@@ -270,13 +272,15 @@ class Toolbox extends Component<Props, State> {
         this._onToolbarToggleRaiseHand = this._onToolbarToggleRaiseHand.bind(this);
         this._onToolbarToggleWantsShots = this._onToolbarToggleWantsShots.bind(this);
         this._onClickMoreBeerButton = this._onClickMoreBeerButton.bind(this);
+        this._onClickNextRoundButton = this._onClickNextRoundButton.bind(this);
         this._onToolbarToggleScreenshare = this._onToolbarToggleScreenshare.bind(this);
         this._onToolbarToggleSharedVideo = this._onToolbarToggleSharedVideo.bind(this);
         this._onToolbarOpenLocalRecordingInfoDialog = this._onToolbarOpenLocalRecordingInfoDialog.bind(this);
         this._onShortcutToggleTileView = this._onShortcutToggleTileView.bind(this);
 
         this.state = {
-            windowWidth: window.innerWidth
+            windowWidth: window.innerWidth,
+            nextRoundButtonLocked: false
         };
     }
 
@@ -893,6 +897,42 @@ class Toolbox extends Component<Props, State> {
         }));
     }
 
+    _onClickNextRoundButton: () => void;
+
+    _onClickNextRoundButton() {
+        const { _localParticipantID, _localParticipant } = this.props;
+        let beerCount = _localParticipant.beerCount;
+
+        if(!this.state.nextRoundButtonLocked) {
+            this.props.dispatch(participantUpdated({
+                id: _localParticipantID,
+                local: true,
+                newRound: Date.now(),
+                beerCount: ++beerCount,
+                beerTimeStamp: Date.now()
+            }));
+        }
+        
+        this.setState({
+            nextRoundButtonLocked: true
+        });
+
+        // disable for 5 seconds to not overload with notifications
+        setTimeout(() => this.setState({
+            nextRoundButtonLocked: false
+            })
+        , 5000);
+
+        /*
+        sendAnalytics(createRemoteVideoMenuButtonEvent(
+            'poke.button',
+            {
+                'participant_id': participantID
+            }
+        ));
+        */
+    }
+
     _onToolbarToggleScreenshare: () => void;
 
     /**
@@ -1248,6 +1288,7 @@ class Toolbox extends Component<Props, State> {
             _wantsShots,
             t
         } = this.props;
+
         const overflowMenuContent = this._renderOverflowMenuContent();
         const overflowHasItems = Boolean(overflowMenuContent.filter(child => child).length);
         const toolbarAccLabel = 'toolbar.accessibilityLabel.moreActionsMenu';
@@ -1276,6 +1317,9 @@ class Toolbox extends Component<Props, State> {
         }
         if (this._shouldShowButton('nextBeer')) {
             buttonsLeft.push('nextBeer');
+        }
+        if (this._shouldShowButton('nextRound')) {
+            buttonsLeft.push('nextRound');
         }
         if (this._shouldShowButton('chat')) {
             buttonsLeft.push('chat');
@@ -1343,6 +1387,15 @@ class Toolbox extends Component<Props, State> {
                             onClick = { this._onToolbarToggleWantsShots }
                             toggled = { _wantsShots }
                             tooltip = { t('toolbar.wantsShots') } /> }
+                    { buttonsLeft.indexOf('nextRound') !== -1
+                        && <ToolbarButton
+                            className = 'nextBeerButton'
+                            accessibilityLabel = { t('toolbar.accessibilityLabel.nextRound') }
+                            icon = { IconNextRound }
+                            iconSize = { 40 }
+                            onClick = { this._onClickNextRoundButton }
+                            toggled = { false }
+                            tooltip = { t('toolbar.nextRound') } /> }
                     { buttonsLeft.indexOf('nextBeer') !== -1
                         && <ToolbarButton
                             accessibilityLabel = { t('toolbar.accessibilityLabel.nextBeer') }
@@ -1423,8 +1476,6 @@ class Toolbox extends Component<Props, State> {
      * @returns {boolean} True if the button should be displayed.
      */
     _shouldShowButton(buttonName) {
-        if(buttonName === 'wantsShots') return true; // TODO: remove because it should take it from config
-        if(buttonName === 'nextBeer') return true; // TODO: remove because it should take it from config
         return this.props._visibleButtons.has(buttonName);
     }
 }

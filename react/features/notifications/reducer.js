@@ -76,6 +76,9 @@ ReducerRegistry.register('features/notifications',
  * queue.
  */
 function _insertNotificationByPriority(notifications, notification) {
+    const enforeceToDrinkAlreadyExists = notifications.filter(n => n.props.titleKey == "notify.newRound").length > 0;
+    if(enforeceToDrinkAlreadyExists) return notifications; 
+
     const newNotificationPriority
         = NOTIFICATION_TYPE_PRIORITIES[notification.props.appearance] || 0;
 

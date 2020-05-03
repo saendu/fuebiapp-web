@@ -2,7 +2,7 @@
 
 import UIEvents from '../../../../service/UI/UIEvents';
 
-import { NOTIFICATION_TIMEOUT, showNotification, showSuccessNotification } from '../../notifications';
+import { NOTIFICATION_TIMEOUT, showNotification, showWarningNotification, showSuccessNotification, showAssetNotification } from '../../notifications';
 import { CALLING, INVITED } from '../../presence-status';
 
 import { APP_WILL_MOUNT, APP_WILL_UNMOUNT } from '../app';
@@ -196,48 +196,59 @@ StateListenerRegistry.register(
                 JitsiConferenceEvents.PARTICIPANT_PROPERTY_CHANGED,
                 (participant, propertyName, oldValue, newValue) => {
                     switch (propertyName) {
-                    case 'features_e2ee':
-                        store.dispatch(participantUpdated({
-                            conference,
-                            id: participant.getId(),
-                            e2eeSupported: newValue
-                        }));
-                        break;
-                    case 'features_jigasi':
-                        store.dispatch(participantUpdated({
-                            conference,
-                            id: participant.getId(),
-                            isJigasi: newValue
-                        }));
-                        break;
-                    case 'features_screen-sharing':
-                        store.dispatch(participantUpdated({
-                            conference,
-                            id: participant.getId(),
-                            features: { 'screen-sharing': true }
-                        }));
-                        break;
-                    case 'raisedHand': {
-                        // TODO hook in here
-                        _raiseHandUpdated(
-                            store, conference, participant.getId(), newValue);
-                        break;
-                    }
-                    case 'wantsShots': {
-                        _wantsShotsUpdated(
-                            store, conference, participant.getId(), newValue);
-                        break;
-                    }
-                    case 'beerCount': {
-                        _beerCountUpdated(
-                            store, conference, participant.getId(), newValue);
-                        break;
-                    }
-                    case 'beerTimeStamp': {
-                        _beerTimeStampUpdated(
-                            store, conference, participant.getId(), newValue);
-                        break;
-                    }
+                        case 'features_e2ee':
+                            store.dispatch(participantUpdated({
+                                conference,
+                                id: participant.getId(),
+                                e2eeSupported: newValue
+                            }));
+                            break;
+                        case 'features_jigasi':
+                            store.dispatch(participantUpdated({
+                                conference,
+                                id: participant.getId(),
+                                isJigasi: newValue
+                            }));
+                            break;
+                        case 'features_screen-sharing':
+                            store.dispatch(participantUpdated({
+                                conference,
+                                id: participant.getId(),
+                                features: { 'screen-sharing': true }
+                            }));
+                            break;
+                        case 'raisedHand': {
+                            _raiseHandUpdated(
+                                store, conference, participant.getId(), newValue);
+                            break;
+                        }
+                        case 'wantsShots': {
+                            _wantsShotsUpdated(
+                                store, conference, participant.getId(), newValue);
+                            break;
+                        }
+                        case 'beerCount': {
+                            _beerCountUpdated(
+                                store, conference, participant.getId(), newValue);
+                            break;
+                        }
+                        case 'beerTimeStamp': {
+                            _beerTimeStampUpdated(
+                                store, conference, participant.getId(), newValue);
+                            break;
+                        }
+                        case 'newRound': {
+                            _newRound(
+                                store, conference, participant.getId(), newValue);
+                            break;
+                        }
+
+                        case 'rejectedNewRoundCount': {
+                            _rejectedNewRoundCount(
+                                store, conference, participant.getId(), newValue);
+                            break;
+                        }
+
                     default:
 
                         // Ignore for now.
@@ -349,7 +360,21 @@ function _maybePlaySounds({ getState, dispatch }, action) {
  * @returns {Object} The value returned by {@code next(action)}.
  */
 function _participantJoinedOrUpdated({ dispatch, getState }, next, action) {
-    const { participant: { avatarURL, email, id, local, name, raisedHand, wantsShots, beerCount, beerTimeStamp } } = action;
+    const { participant: 
+        { 
+            avatarURL, 
+            email, 
+            id, 
+            local, 
+            name, 
+            raisedHand, 
+            wantsShots, 
+            beerCount, 
+            beerTimeStamp, 
+            newRound,
+            rejectedNewRoundCount
+        } 
+    } = action;
     // Send an external update of the local participant's raised hand state
     // if a new raised hand state is defined in the action.
     if (typeof raisedHand !== 'undefined') {
@@ -396,6 +421,30 @@ function _participantJoinedOrUpdated({ dispatch, getState }, next, action) {
                 && conference.setLocalParticipantProperty(
                     'beerTimeStamp',
                     beerTimeStamp);
+        }
+    }
+
+    // Update Local EnforceToDrink
+    if (typeof newRound !== 'undefined') {
+        if (local) {
+            const { conference } = getState()['features/base/conference'];
+
+            conference
+                && conference.setLocalParticipantProperty(
+                    'newRound',
+                    newRound);
+        }
+    }
+
+    // Update Local rejectedNewRoundCount
+    if (typeof rejectedNewRoundCount !== 'undefined') {
+        if (local) {
+            const { conference } = getState()['features/base/conference'];
+
+            conference
+                && conference.setLocalParticipantProperty(
+                    'rejectedNewRoundCount',
+                    rejectedNewRoundCount);
         }
     }
 
@@ -459,7 +508,7 @@ function _raiseHandUpdated({ dispatch, getState }, conference, participantId, ne
 }
 
 /**
- * Handles a raise hand status update.
+ * Handles a want shots status update.
  *
  * @param {Function} dispatch - The Redux dispatch function.
  * @param {Object} conference - The conference for which we got an update.
@@ -491,6 +540,38 @@ function _wantsShotsUpdated({ dispatch, getState }, conference, participantId, n
 }
 
 /**
+ * Handles start of a new round
+ *
+ * @param {Function} dispatch - The Redux dispatch function.
+ * @param {Object} conference - The conference for which we got an update.
+ * @param {string?} participantId - The ID of the participant from which we got an update. If undefined,
+ * we update the local participant.
+ * @param {boolean} newValue - The new value of the raise hand status.
+ * @returns {void}
+ */
+function _newRound({ dispatch, getState }, conference, participantId, newValue) {
+    const timeStampPushed = newValue;
+    
+    const pid = participantId || getLocalParticipant(getState()).id;
+    
+    dispatch(participantUpdated({
+        conference,
+        id: pid,
+        newRound: timeStampPushed
+    }));
+
+    if (timeStampPushed > 0) {
+        dispatch(showAssetNotification({
+            titleArguments: {
+                name: getParticipantDisplayName(getState, pid)
+            },
+            titleKey: 'notify.newRound',
+            assetLink: '../images/pouringBeer.gif'
+        }, NOTIFICATION_TIMEOUT));
+    }
+}
+
+/**
  * Handles a new beer
  *
  * @param {Function} dispatch - The Redux dispatch function.
@@ -512,16 +593,51 @@ function _beerCountUpdated({ dispatch, getState }, conference, participantId, ne
 
     // NOTIFY OTHERS
     const participant: any = getParticipantById(getState(), participantId);
-    const timeNewBeerPushedLast = participant.beerTimeStamp ? (Date.now() - participant.beerTimeStamp)/1000 : null ; 
+    const timeNewBeerPushedLast = participant.beerTimeStamp ? (Date.now() - participant.beerTimeStamp)/1000 : null; 
 
     if (beerCount >= 1 && (!timeNewBeerPushedLast || timeNewBeerPushedLast > 10)) { // this is necessery because of update hack +0.01
-        dispatch(showSuccessNotification({
+        dispatch(showAssetNotification({
             titleArguments: {
                 name: getParticipantDisplayName(getState, pid)
             },
-            titleKey: 'notify.newBeer'
+            titleKey: 'notify.newBeer',
+            assetLink: '../images/cheers.gif',
+            noActions: true
         }, 4000));
     }
+    
+}
+
+/**
+ * Handles enforce drink rejection
+ *
+ * @param {Function} dispatch - The Redux dispatch function.
+ * @param {Object} conference - The conference for which we got an update.
+ * @param {string?} participantId - The ID of the participant from which we got an update. If undefined,
+ * we update the local participant.
+ * @param {boolean} newValue - The new value of the raise hand status.
+ * @returns {void}
+ */
+function _rejectedNewRoundCount({ dispatch, getState }, conference, participantId, newValue) {    
+    const rejectCount = newValue;
+    const pid = participantId || getLocalParticipant(getState()).id;
+
+    dispatch(participantUpdated({
+        conference,
+        id: pid,
+        newRoundCount: rejectCount
+    }));
+
+    // NOTIFY OTHERS
+    //const participant: any = getParticipantById(getState(), participantId);
+    dispatch(showAssetNotification({
+        titleArguments: {
+            name: getParticipantDisplayName(getState, pid)
+        },
+        titleKey: 'notify.rejectedNewRound',
+        assetLink: '../images/sad.gif',
+        noActions: true
+    }, 4000));
     
 }
 

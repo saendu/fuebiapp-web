@@ -23,7 +23,11 @@ type Props = AbstractToolbarButtonProps & {
      * From which direction the tooltip should appear, relative to the
      * button.
      */
-    tooltipPosition: string
+    tooltipPosition: string,
+
+    iconSize: number,
+
+    className: string
 };
 
 /**
@@ -53,7 +57,7 @@ class ToolbarButton extends AbstractToolbarButton<Props> {
         return (
             <div
                 aria-label = { this.props.accessibilityLabel }
-                className = 'toolbox-button'
+                className = {`toolbox-button ${this.props.className ?? ''}`}
                 onClick = { this.props.onClick }>
                 { this.props.tooltip
                     ? <Tooltip
@@ -74,7 +78,7 @@ class ToolbarButton extends AbstractToolbarButton<Props> {
     _renderIcon() {
         return (
             <div className = { `toolbox-icon ${this.props.toggled ? 'toggled' : ''}` }>
-                <Icon src = { this.props.icon } />
+                <Icon src = { this.props.icon } size = { this.props.iconSize ?? null } />
             </div>
         );
     }
