@@ -70,7 +70,8 @@ export default class AbstractPokeButton extends AbstractButton<Props, State> {
         dispatch(participantUpdated({
             id: participantID,
             local: true,
-            participantToPoke: JSON.stringify(participantToPoke)
+            participantToPoke: JSON.stringify(participantToPoke),
+            newRoundPending: true
         }));
 
     }
