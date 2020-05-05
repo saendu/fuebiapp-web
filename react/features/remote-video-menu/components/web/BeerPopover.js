@@ -188,7 +188,6 @@ class BeerPopover extends Component<Props, *> {
 
     _blinkTimer () {
         const blinkToggle = () => {
-            console.log(Date.now())
             this.setState(prevState => {
                 return {
                     beerIconVisible: !prevState.beerIconVisible
