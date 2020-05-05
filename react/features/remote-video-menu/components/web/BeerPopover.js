@@ -2,8 +2,7 @@
 
 import React, { Component } from 'react';
 
-import { NumberIcon, IconMenuThumb } from '../../../base/icons';
-import { IconBeer } from '../../../base/icons';
+import { NumberIcon, IconBeer, IconBeerWhite, IconBeerPlusOne } from '../../../base/icons';
 import { getLocalParticipant, getParticipantById, PARTICIPANT_ROLE } from '../../../base/participants';
 import { Popover } from '../../../base/popover';
 import { connect } from '../../../base/redux';
@@ -49,6 +48,8 @@ type Props = {
 
     /* BEER TIMESTAMP */
     _beerTimeStamp: number,
+
+    _isNewRoundPending: Boolean, 
 
     /**
      * A value between 0 and 1 indicating the volume of the participant's
@@ -114,6 +115,7 @@ class BeerPopover extends Component<Props, *> {
      * @type {HTMLDivElement}
      */
     _rootElement = null;
+    _intervalId = null; 
 
     /**
      * Initializes a new {#@code RemoteBeerIndicator} instance.
@@ -123,10 +125,14 @@ class BeerPopover extends Component<Props, *> {
      */
     constructor(props: Object) {
         super(props);
+
+        this.state = {
+            beerIconVisible: true
+        }
         // Bind event handler so it is only bound once for every instance.
         this._onShowRemoteMenu = this._onShowRemoteMenu.bind(this);
     }
-
+    
     /**
      * Implements React's {@link Component#render()}.
      *
@@ -134,12 +140,15 @@ class BeerPopover extends Component<Props, *> {
      * @returns {ReactElement}
      */
     render() {
-        const { hoverDisabled } = this.props; 
-        const content = this._renderRemoteVideoMenu();
-
+        const { _isNewRoundPending, hoverDisabled } = this.props; 
+        const content = this._renderRemoteVideoMenu(); 
         if (!content) {
             return null;
         }
+
+        if(_isNewRoundPending && !this._intervalId) this._blinkTimer();
+        if(!_isNewRoundPending && this._intervalId) this._intervalId = clearInterval(this._intervalId);
+        const iconBlinkStyle = _isNewRoundPending ? { visibility: this.state.beerIconVisible ? 'visible' : 'hidden' } : { visibility: 'visible' };
 
         return (
             hoverDisabled ? 
@@ -147,7 +156,7 @@ class BeerPopover extends Component<Props, *> {
                 className = 'popover-trigger remote-video-menu-trigger beerPopover'>
                 <NumberIcon
                     size = '2em'
-                    src = { IconBeer }
+                    src = { _isNewRoundPending ? IconBeerPlusOne : IconBeer  }
                     title = 'Beer stats' 
                     number = {this.props._beerCount} />
                 <BeerTimer
@@ -156,16 +165,18 @@ class BeerPopover extends Component<Props, *> {
                 />
             </div> :
             <Popover
-                content = { content }
-                onPopoverOpen = { this._onShowRemoteMenu }
-                position = { this.props.menuPosition }>
+            content = { content }
+            onPopoverOpen = { this._onShowRemoteMenu }
+            position = { this.props.menuPosition }>
                 <div
                     className = 'popover-trigger remote-video-menu-trigger beerPopover'>
                     <NumberIcon
                         size = '2em'
-                        src = { IconBeer }
+                        src = { _isNewRoundPending ? IconBeerPlusOne : IconBeer }
                         title = 'Beer stats' 
-                        number = {this.props._beerCount} />
+                        number = {this.props._beerCount}
+                        style = { iconBlinkStyle }
+                    />
                     <BeerTimer
                         beerCount = {this.props._beerCount}
                         beerTimeStamp = {this.props._beerTimeStamp}
@@ -174,6 +185,22 @@ class BeerPopover extends Component<Props, *> {
             </Popover>
         );
     }
+
+    _blinkTimer () {
+        const blinkToggle = () => {
+            console.log(Date.now())
+            this.setState(prevState => {
+                return {
+                    beerIconVisible: !prevState.beerIconVisible
+                };
+            });
+        }
+		
+        
+		this._intervalId = setInterval(() => {
+            blinkToggle(); 
+        }, 530);
+	}
 
     _onShowRemoteMenu: () => void;
 
@@ -304,7 +331,8 @@ function _mapStateToProps(state, ownProps) {
         _disableKick: Boolean(disableKick),
         _disableRemoteMute: Boolean(disableRemoteMute),
         _beerCount: ownParticipant ? Math.round(ownParticipant.beerCount) : 0, // fix back hack to force update
-        _beerTimeStamp: ownParticipant ? ownParticipant.beerTimeStamp : null
+        _beerTimeStamp: ownParticipant ? ownParticipant.beerTimeStamp : null,
+        _isNewRoundPending: ownParticipant.newRoundPending
     };
 }
 

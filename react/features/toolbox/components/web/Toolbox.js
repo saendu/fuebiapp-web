@@ -99,6 +99,7 @@ type Props = {
      */
     _beerCount: number,
 
+
     _beerTimeStamp: Date,
 
     /**
@@ -202,6 +203,8 @@ type Props = {
      * Set with the buttons which this Toolbox should display.
      */
     _visibleButtons: Set<string>,
+
+    _participants: Object,
 
     /**
      * Invoked to active other features of the app.
@@ -900,18 +903,29 @@ class Toolbox extends Component<Props, State> {
     _onClickNextRoundButton: () => void;
 
     _onClickNextRoundButton() {
-        const { _localParticipantID, _localParticipant } = this.props;
+        const { _localParticipantID, _localParticipant, _participants } = this.props;
         let beerCount = _localParticipant.beerCount;
 
+        // local update
         if(!this.state.nextRoundButtonLocked) {
             this.props.dispatch(participantUpdated({
                 id: _localParticipantID,
                 local: true,
                 newRound: Date.now(),
                 beerCount: ++beerCount,
-                beerTimeStamp: Date.now()
+                beerTimeStamp: Date.now(),
             }));
         }
+
+        // remote participants
+        _participants.forEach(p => {
+            if(p.id !== _localParticipantID) {
+                this.props.dispatch(participantUpdated({
+                    id: p.id,
+                    newRoundPending: true, 
+                }));
+            }
+        })
         
         this.setState({
             nextRoundButtonLocked: true
@@ -1553,7 +1567,8 @@ function _mapStateToProps(state) {
             || sharedVideoStatus === 'start'
             || sharedVideoStatus === 'pause',
         _visible: isToolboxVisible(state),
-        _visibleButtons: equals(visibleButtons, buttons) ? visibleButtons : buttons
+        _visibleButtons: equals(visibleButtons, buttons) ? visibleButtons : buttons,
+        _participants: getParticipants(state)
     };
 }
 

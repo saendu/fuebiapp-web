@@ -192,6 +192,7 @@ StateListenerRegistry.register(
     (conference, store) => {
         if (conference) {
             // We joined a conference
+            // These are infos that come from another browser
             conference.on(
                 JitsiConferenceEvents.PARTICIPANT_PROPERTY_CHANGED,
                 (participant, propertyName, oldValue, newValue) => {
@@ -379,7 +380,8 @@ function _participantJoinedOrUpdated({ dispatch, getState }, next, action) {
             beerTimeStamp, 
             newRound,
             rejectedNewRoundCount,
-            participantToPoke
+            participantToPoke,
+            newRoundPending
         } 
     } = action;
     // Send an external update of the local participant's raised hand state
@@ -456,6 +458,18 @@ function _participantJoinedOrUpdated({ dispatch, getState }, next, action) {
     }
 
     // Update Local rejectedNewRoundCount
+    if (typeof newRoundPending !== 'undefined') {
+        if (local) {
+            const { conference } = getState()['features/base/conference'];
+
+            conference
+                && conference.setLocalParticipantProperty(
+                    'newRoundPending',
+                    newRoundPending);
+        }
+    }
+
+    // Update Local pending round
     if (typeof participantToPoke !== 'undefined') {
         if (local) {
             const { conference } = getState()['features/base/conference'];
@@ -607,7 +621,8 @@ function _beerCountUpdated({ dispatch, getState }, conference, participantId, ne
     dispatch(participantUpdated({
         conference,
         id: pid,
-        beerCount
+        beerCount,
+        newRoundPending: false // we change back the icon
     }));
 
     // NOTIFY OTHERS
@@ -644,7 +659,8 @@ function _rejectedNewRoundCount({ dispatch, getState }, conference, participantI
     dispatch(participantUpdated({
         conference,
         id: pid,
-        rejectCount
+        rejectCount,
+        newRoundPending: false // we change back the icon
     }));
 
     // NOTIFY OTHERS

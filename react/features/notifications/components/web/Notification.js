@@ -98,7 +98,8 @@ class Notification extends AbstractNotification<Props> {
             id: localParticipantID,
             beerCount: ++beerCount,
             local: true,
-            beerTimeStamp: Date.now()
+            beerTimeStamp: Date.now(),
+            newRoundPending: false
         }));
 
         this._onDismissed();
@@ -112,6 +113,7 @@ class Notification extends AbstractNotification<Props> {
             id: localParticipantID,
             local: true,
             rejectedNewRoundCount: ++rejectCount,
+            newRoundPending: false
         }));
 
         this._onDismissed();

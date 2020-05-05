@@ -89,21 +89,3 @@ export default class BeerCounter extends Component<Props, State> {
         return intervalId;
     }
 }
-
-/**
-
-function _mapStateToProps(state, ownProps) {
-    const participants = state["features/base/participants"]; 
-    const participantFilterFn = ownProps.participantID === 'local' ? 
-        (p) => p.local : (p) => p.id === ownProps.participantID;
-    const ownParticipant = participants.filter(participantFilterFn)[0];
-
-    return {
-        _beerCount: ownParticipant ? Math.round(ownParticipant.beerCount) : 0, // hack to force update
-        _beerTimeStamp: ownParticipant.beerTimeStamp
-    };
-}
-
-export default connect(_mapStateToProps)(BeerCounter);
-
-*/
