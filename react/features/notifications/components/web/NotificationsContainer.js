@@ -4,6 +4,11 @@ import { FlagGroup } from '@atlaskit/flag';
 import React from 'react';
 
 import { connect } from '../../../base/redux';
+import {
+    getLocalParticipant,
+    getParticipants,
+    participantUpdated
+} from '../../../base/participants';
 
 import AbstractNotificationsContainer, {
     _abstractMapStateToProps,
@@ -17,7 +22,9 @@ type Props = AbstractProps & {
     /**
      * Whther we are a SIP gateway or not.
      */
-     _iAmSipGateway: boolean
+     _iAmSipGateway: boolean,
+     localParticipantID: string,
+    localParticipant: string
 };
 
 /**
@@ -70,7 +77,11 @@ class NotificationsContainer extends AbstractNotificationsContainer<Props> {
                     { ...props }
                     id = { uid }
                     key = { uid }
-                    uid = { uid } />
+                    uid = { uid } 
+                    localParticipantID = { this.props._localParticipantID }
+                    localParticipant = { this.props._localParticipant }
+                    dispatch = { this.props.dispatch }
+                />
 
             );
         });
@@ -86,10 +97,13 @@ class NotificationsContainer extends AbstractNotificationsContainer<Props> {
  */
 function _mapStateToProps(state) {
     const { iAmSipGateway } = state['features/base/config'];
+    const localParticipant = getLocalParticipant(state);
 
     return {
         ..._abstractMapStateToProps(state),
-        _iAmSipGateway: Boolean(iAmSipGateway)
+        _iAmSipGateway: Boolean(iAmSipGateway),
+        _localParticipant: localParticipant,
+        _localParticipantID: localParticipant.id
     };
 }
 

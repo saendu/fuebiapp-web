@@ -9,3 +9,5 @@ export const PARTICIPANT_JOINED_FILE = 'joined.wav';
  * leaves the conference.
  */
 export const PARTICIPANT_LEFT_FILE = 'left.wav';
+
+export const PARTICIPANT_SCHUEM_FILE = 'schuem.wav';

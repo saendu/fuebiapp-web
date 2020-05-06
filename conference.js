@@ -1980,7 +1980,7 @@ export default {
                 id: localParticipant.id,
                 local: true,
                 beerCount: newCount, 
-                beerTimeStamp: beerTimeStamp  
+                beerTimeStamp: beerTimeStamp
             }));
 
             // The logic shared between RN and web.

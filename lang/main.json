@@ -171,6 +171,8 @@
         "connectErrorWithMsg": "Oops! Something went wrong and we couldn't connect to the conference: {{msg}}",
         "connecting": "Connecting",
         "contactSupport": "Contact support",
+        "oneMoreYes": "Yes, sure!",
+        "oneMoreNo": "Maybe later.",
         "copy": "Copy",
         "dismiss": "Dismiss",
         "displayNameRequired": "Hi! What’s your name?",
@@ -286,7 +288,8 @@
         "WaitForHostMsgWOk": "The conference <b>{{room}}</b> has not yet started. If you are the host then please press Ok to authenticate. Otherwise, please wait for the host to arrive.",
         "WaitingForHost": "Waiting for the host ...",
         "Yes": "Yes",
-        "yourEntireScreen": "Your entire screen"
+        "yourEntireScreen": "Your entire screen",
+        "poke": "Suuf eine!"
     },
     "dialOut": {
         "statusMessage": "is now {{status}}"
@@ -456,7 +459,7 @@
         "passwordRemovedRemotely": "$t(lockRoomPasswordUppercase) removed by another participant",
         "passwordSetRemotely": "$t(lockRoomPasswordUppercase) set by another participant",
         "raisedHand": "{{name}} would like to speak.",
-        "newBeer": "{{name}} opened a new beer! What about you?",
+        "newBeer": "{{name}} opened a new beer!",
         "somebody": "Somebody",
         "startSilentTitle": "You joined with no audio output!",
         "startSilentDescription": "Rejoin the meeting to enable audio",
@@ -466,11 +469,14 @@
         "newDeviceCameraTitle": "New camera detected",
         "newDeviceAudioTitle": "New audio device detected",
         "newDeviceAction": "Use",
-        "wantsShots": "{{name}} wants shots!",
         "OldElectronAPPTitle": "Security vulnerability!",
         "oldElectronClientDescription1": "You appear to be using an old verion of the Jitsi Meet client which has known security vulnerabilities. Please make sure you update to our ",
         "oldElectronClientDescription2": "latest build",
-        "oldElectronClientDescription3": " now!"
+        "oldElectronClientDescription3": " now!",
+        "wantsShots": "{{name}} wants shots!",
+        "newRound": "{{name}} starts a new round!",
+        "rejectedNewRound": "{{name}} rejected to open a new beer...",
+        "poke": "{{name}} wants that you have a beer!"
     },
     "passwordSetRemotely": "set by another participant",
     "passwordDigitsOnly": "Up to {{number}} digits",
@@ -616,6 +622,8 @@
             "moreOptions": "Show more options",
             "mute": "Toggle mute audio",
             "muteEveryone": "Mute everyone",
+            "nextBeer": "Have a next beer",
+            "nextRound": "Initiate new round",
             "pip": "Toggle Picture-in-Picture mode",
             "privateMessage": "Send private message",
             "profile": "Edit your profile",
@@ -676,6 +684,7 @@
         "raiseHand": "Raise / Lower your hand",
         "wantsShots": "Have shots now!",
         "nextBeer": "Have a next beer",
+        "nextRound": "Initiate new round",
         "noWantsShots": "Stop having shots.",
         "raiseYourHand": "Raise your hand",
         "Settings": "Settings",

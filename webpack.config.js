@@ -132,7 +132,15 @@ const config = {
                     expandProps: 'start'
                 }
             } ]
-        } ]
+        },
+        {
+            test: /\.(png|jpe?g|gif)$/i,
+            use: [
+              {
+                loader: 'file-loader',
+              },
+            ],
+          }, ]
     },
     node: {
         // Allow the use of the real filename of the module being executed. By

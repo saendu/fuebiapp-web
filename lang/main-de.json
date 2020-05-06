@@ -171,6 +171,8 @@
         "connectErrorWithMsg": "Oh! Es hat etwas nicht geklappt und der Konferenz konnte nicht beigetreten werden: {{msg}}",
         "connecting": "Verbindung wird hergestellt",
         "contactSupport": "Support kontaktieren",
+        "oneMoreYes": "Ja, klar!",
+        "oneMoreNo": "Vielleicht später.",
         "copy": "Kopieren",
         "dismiss": "OK",
         "displayNameRequired": "Hallo! Wie ist Ihr Name?",
@@ -281,7 +283,8 @@
         "WaitForHostMsgWOk": "Die Konferenz <b>{{room}}</b> wurde noch nicht gestartet. Wenn Sie der Organisator sind, drücken Sie zum Authentifizieren auf OK. Warten Sie andernfalls, bis der Organisator erscheint.",
         "WaitingForHost": "Warten auf den Organisator...",
         "Yes": "Ja",
-        "yourEntireScreen": "Ganzer Bildschirm"
+        "yourEntireScreen": "Ganzer Bildschirm",
+        "poke": "Suuf eine!"
     },
     "dialOut": {
         "statusMessage": "ist jetzt {{status}}"
@@ -449,7 +452,7 @@
         "passwordRemovedRemotely": "$t(lockRoomPasswordUppercase) von einem anderen Teilnehmer entfernt",
         "passwordSetRemotely": "$t(lockRoomPasswordUppercase) von einem anderen Teilnehmer gesetzt",
         "raisedHand": "{{name}} möchte sprechen.",
-        "newBeer": "{{name}} hat ein neuer Beer geöffnet. Und du?",
+        "newBeer": "{{name}} hat ein neues Bier geöffnet.",
         "somebody": "Jemand",
         "startSilentTitle": "Sie sind ohne Audioausgabe beigetreten!",
         "startSilentDescription": "Treten Sie dem Meeting noch einmal bei, um Ihr Audio zu aktivieren",
@@ -459,7 +462,10 @@
         "newDeviceCameraTitle": "Neue Kamera erkannt",
         "newDeviceAudioTitle": "Neues Audiogerät erkannt",
         "newDeviceAction": "Verwenden",
-        "wantsShots": "{{name}} will eine Runde Shots!"
+        "wantsShots": "{{name}} will eine Runde Shots!",
+        "newRound": "{{name}} startet eine neue Runde!",
+        "rejectedNewRound": "{{name}} will kein neues Bier...",
+        "poke": "{{name}} will das du ein Bier nimmst!"
     },
     "passwordSetRemotely": "von einem anderen Teilnehmer gesetzt",
     "passwordDigitsOnly": "Bis zu {{number}} Ziffern",
@@ -606,6 +612,7 @@
             "profile": "Profil bearbeiten",
             "raiseHand": "„Melden“ ein-/ausschalten",
             "nextBeer": "Nächstes Bier trinken",
+            "nextRound": "Neue Runde anziehen",
             "recording": "Aufzeichnung ein-/ausschalten",
             "remoteMute": "Teilnehmer stummschalten",
             "Settings": "Einstellungen ein-/ausschalten",
@@ -661,6 +668,7 @@
         "wantsShots": "Shots Runde",
         "noWantsShots": "Shots Runde aufheben",
         "nextBeer": "Trinke das nächste Bier",
+        "nextRound": "Neue Runde anziehen",
         "raiseYourHand": "Melden",
         "Settings": "Einstellungen",
         "sharedvideo": "YouTube-Video teilen",

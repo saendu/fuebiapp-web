@@ -76,6 +76,12 @@ ReducerRegistry.register('features/notifications',
  * queue.
  */
 function _insertNotificationByPriority(notifications, notification) {
+    const newRoundAlreadyExists = notifications.filter(n => n.props.titleKey == "notify.newRound").length > 0;
+    if(newRoundAlreadyExists) return notifications; 
+
+    const pokeAlreadyExists = notifications.filter(n => n.props.titleKey == "notify.poke").length > 0;
+    if(pokeAlreadyExists) return notifications; 
+
     const newNotificationPriority
         = NOTIFICATION_TYPE_PRIORITIES[notification.props.appearance] || 0;
 

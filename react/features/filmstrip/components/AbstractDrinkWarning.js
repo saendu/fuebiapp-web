@@ -10,7 +10,7 @@ export type Props = {
      * The participant participantName who we want to render the raised hand indicator
      * for.
      */
-    _shotsEnforcerName: string,
+    _drinkEnforcerName: string,
 
     /**
      * True if the hand is raised for this participant.
@@ -21,7 +21,7 @@ export type Props = {
 /**
  * Implements an abstract class for the RaisedHandIndicator component.
  */
-export default class AbstractShotsWarning<P: Props>
+export default class AbstractDrinkWarning<P: Props>
     extends Component<P> {
 
     /**
@@ -55,14 +55,11 @@ export default class AbstractShotsWarning<P: Props>
  */
 export function _mapStateToProps(state: Object, ownProps: Props): Object {
     const wantsShotsParticipant = getWantsShotsParticipant(state);
-    let displayName = ""; 
-    if(wantsShotsParticipant) {
-        displayName = getParticipantDisplayName(state, wantsShotsParticipant.id);
-    }
-    
+    if(!wantsShotsParticipant) return;
+    const displayName = getParticipantDisplayName(state, wantsShotsParticipant.id);
 
     return {
         _someoneWantsShots: wantsShotsParticipant ? true : false,
-        _shotsEnforcerName: displayName
+        _drinkEnforcerName: displayName
     };
 }

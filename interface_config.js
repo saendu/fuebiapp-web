@@ -52,7 +52,7 @@ var interfaceConfig = {
         'livestreaming', 'etherpad', 'sharedvideo', 'settings', 'raisehand',
         'videoquality', 'filmstrip', 'invite', 'feedback', 'stats', 'shortcuts',
         'tileview', 'videobackgroundblur', 'download', 'help', 'mute-everyone',
-        'e2ee', 'wantsShots'
+        'e2ee', 'wantsShots', 'nextBeer', 'nextRound'
     ],
 
     LOCATIONS: [

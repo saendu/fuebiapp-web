@@ -69,6 +69,11 @@
         .button-group-right {
             display: flex;
             width: 33%;
+            .nextBeerButton {
+                svg {
+                    margin-bottom: 7px;
+                }
+            }
         }
 
         .button-group-center {

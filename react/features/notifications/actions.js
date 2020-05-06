@@ -108,6 +108,19 @@ export function showNotification(props: Object = {}, timeout: ?number) {
 }
 
 /**
+ * Queues a asset notification for display.
+ *
+ * @param {Object} props - The props needed to show the notification component.
+ * @returns {Object}
+ */
+export function showAssetNotification(props: Object) {
+    return showNotification({
+        ...props,
+        appearance: NOTIFICATION_TYPE.ASSET
+    });
+}
+
+/**
  * Queues a warning notification for display.
  *
  * @param {Object} props - The props needed to show the notification component.

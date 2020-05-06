@@ -196,8 +196,7 @@ class WelcomePage extends AbstractWelcomePage {
                         <h3>Features in progress</h3>
                         <p>
                         <ul>
-                            <li>Iniciate next round</li>
-                            <li>Poke someone to have another drink</li>
+                            <li>Jingles</li>
                         </ul>
                         </p>
                     </div>

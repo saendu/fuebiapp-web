@@ -15,7 +15,8 @@ export const NOTIFICATION_TYPE = {
     INFO: 'info',
     NORMAL: 'normal',
     SUCCESS: 'success',
-    WARNING: 'warning'
+    WARNING: 'warning',
+    ASSET: 'asset'
 };
 
 /**
@@ -28,5 +29,6 @@ export const NOTIFICATION_TYPE_PRIORITIES = {
     [NOTIFICATION_TYPE.INFO]: 3,
     [NOTIFICATION_TYPE.NORMAL]: 3,
     [NOTIFICATION_TYPE.SUCCESS]: 3,
-    [NOTIFICATION_TYPE.WARNING]: 4
+    [NOTIFICATION_TYPE.WARNING]: 4,
+    [NOTIFICATION_TYPE.ASSET]: 5
 };

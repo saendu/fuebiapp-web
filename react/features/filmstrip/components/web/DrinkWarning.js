@@ -6,13 +6,13 @@ import Banner from '@atlaskit/banner';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 import { connect } from '../../../base/redux';
 
-import AbstractShotsWarning, {
+import AbstractDrinkWarning, {
     type Props as AbstractProps,
     _mapStateToProps
-} from '../AbstractShotsWarning';
+} from '../AbstractDrinkWarning';
 
 /**
- * The type of the React {@code Component} props of {@link ShotsWarning}.
+ * The type of the React {@code Component} props of {@link DrinkWarning}.
  */
 type Props = AbstractProps & {
 
@@ -32,7 +32,7 @@ type Props = AbstractProps & {
  *
  * @extends Component
  */
-class ShotsWarning extends AbstractShotsWarning<Props> {
+class DrinkWarning extends AbstractDrinkWarning<Props> {
     /**
      * Renders the platform specific indicator element.
      *
@@ -40,11 +40,12 @@ class ShotsWarning extends AbstractShotsWarning<Props> {
      */
     
     _renderIndicator() {
+        // TODO SF: Translate
         const Icon = <WarningIcon label="Warning icon" secondaryColor="inherit" />;
         return (
             <div>
                 <Banner icon={Icon} isOpen={true} appearance="error">
-                    {this.props._shotsEnforcerName}: SHOTS SHOTS SHOTS!
+                    {this.props._drinkEnforcerName} wants everyone to take SHOTS!
                 </Banner>
                 <div className="shots-clip"><img src="images/shots.gif"/></div>
             </div>
@@ -52,4 +53,4 @@ class ShotsWarning extends AbstractShotsWarning<Props> {
     }
 }
 
-export default connect(_mapStateToProps)(ShotsWarning);
+export default connect(_mapStateToProps)(DrinkWarning);

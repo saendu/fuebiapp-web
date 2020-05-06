@@ -12,6 +12,10 @@ export type Props = {
      */
     appearance: string,
 
+    assetLink: string,
+
+    noActions: boolean,
+
     /**
      * Callback invoked when the custom button is clicked.
      */
@@ -85,7 +89,13 @@ export type Props = {
     /**
      * The unique identifier for the notification.
      */
-    uid: number
+    uid: number,
+
+    localParticipantID: string,
+
+    localParticipant: Object
+
+
 };
 
 /**

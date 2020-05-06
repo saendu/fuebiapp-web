@@ -288,7 +288,8 @@ export class LocalVideo extends SmallVideo {
                             onRemoteControlToggle = { null }
                             onVolumeChange = { null }
                             participantID = { ownParticipant.id }
-                            remoteControlState = { null } />
+                            remoteControlState = { null } 
+                            hoverDisabled = { true } />
                 <VideoTrack
                     id = 'localVideo_container'
                     videoTrack = { videoTrack } />

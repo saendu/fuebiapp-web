@@ -4,16 +4,23 @@ import Flag from '@atlaskit/flag';
 import EditorInfoIcon from '@atlaskit/icon/glyph/editor/info';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
+import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
 import { colors } from '@atlaskit/theme';
 import React from 'react';
 
 import { translate } from '../../../base/i18n';
+import {
+    participantUpdated
+} from '../../../base/participants';
 
 import { NOTIFICATION_TYPE } from '../../constants';
 
 import AbstractNotification, {
     type Props
 } from '../AbstractNotification';
+
+import { PARTICIPANT_SCHUEM_SOUND_ID } from '../../../base/participants/constants';
+import { playSound } from '../../../base/sounds';
 
 declare var interfaceConfig: Object;
 
@@ -44,7 +51,6 @@ class Notification extends AbstractNotification<Props> {
      */
     render() {
         const {
-            appearance,
             hideErrorSupportLink,
             isDismissAllowed,
             onDismissed,
@@ -52,13 +58,33 @@ class Notification extends AbstractNotification<Props> {
             title,
             titleArguments,
             titleKey,
-            uid
+            uid,
+            assetLink,
+            noActions
         } = this.props;
 
+        if(titleKey === "notify.newRound") {
+            // local SOUND
+            this.props.dispatch(playSound(PARTICIPANT_SCHUEM_SOUND_ID));
+        }
+
         return (
-            <Flag
+            this.props.appearance === NOTIFICATION_TYPE.ASSET ?
+                <div className={'assetNotification'} style={!assetLink ? '' : {backgroundImage: `url(${assetLink})`}} >
+                    <Flag
+                    actions = { this._mapAppearanceToButtons(hideErrorSupportLink, noActions) }
+                    appearance = { this._mapAppearance() }
+                    description = { this._renderDescription() }
+                    icon = { this._mapAppearanceToIcon() }
+                    id = { uid }
+                    isDismissAllowed = { false }
+                    onDismissed = { onDismissed }
+                    title = { title || t(titleKey, titleArguments) } />
+                </div>
+            :
+                <Flag
                 actions = { this._mapAppearanceToButtons(hideErrorSupportLink) }
-                appearance = { appearance }
+                appearance = { this._mapAppearance() }
                 description = { this._renderDescription() }
                 icon = { this._mapAppearanceToIcon() }
                 id = { uid }
@@ -72,6 +98,35 @@ class Notification extends AbstractNotification<Props> {
 
     _onDismissed: () => void;
 
+    _oneMoreBeerClick() {
+        const { localParticipantID, localParticipant } = this.props;
+        let beerCount = localParticipant.beerCount ?? 0;
+
+        this.props.dispatch(participantUpdated({
+            id: localParticipantID,
+            beerCount: ++beerCount,
+            local: true,
+            beerTimeStamp: Date.now(),
+            newRoundPending: false
+        }));
+
+        this._onDismissed();
+    }
+
+    _noBeerClick() {
+        const { localParticipantID, localParticipant } = this.props;
+        let rejectCount = localParticipant.rejectedNewRoundCount ?? 0;
+
+        this.props.dispatch(participantUpdated({
+            id: localParticipantID,
+            local: true,
+            rejectedNewRoundCount: ++rejectCount,
+            newRoundPending: false
+        }));
+
+        this._onDismissed();
+    }
+
     /**
      * Creates a {@code ReactElement} for displaying the contents of the
      * notification.
@@ -81,11 +136,17 @@ class Notification extends AbstractNotification<Props> {
      */
     _renderDescription() {
         return (
-            <div>
+            <>
+                <div>
+                    {
+                        this._getDescription()
+                    }
+                </div>
+
                 {
-                    this._getDescription()
+                    (this.props.appearance === NOTIFICATION_TYPE.ASSET) ? <div className='notificationAssetContent' /> : null
                 }
-            </div>
+            </>
         );
     }
 
@@ -104,11 +165,13 @@ class Notification extends AbstractNotification<Props> {
      * notification appearance.
      *
      * @param {boolean} hideErrorSupportLink - Indicates if the support link
+     * @param {boolean} noActions - Indicates if actions are accepted
+     * 
      * should be hidden in the error messages.
      * @private
      * @returns {Object[]}
      */
-    _mapAppearanceToButtons(hideErrorSupportLink) {
+    _mapAppearanceToButtons(hideErrorSupportLink, noActions) {
         switch (this.props.appearance) {
         case NOTIFICATION_TYPE.ERROR: {
             const buttons = [
@@ -134,6 +197,22 @@ class Notification extends AbstractNotification<Props> {
                     onClick: this._onDismissed
                 }
             ];
+        case NOTIFICATION_TYPE.ASSET:
+            if(noActions) {
+                return setTimeout(() => this._onDismissed(), 4000);
+            }
+            else {
+                return [
+                    {
+                        content: this.props.t('dialog.oneMoreYes'),
+                        onClick: () => this._oneMoreBeerClick(),
+                    },
+                    { 
+                        content: this.props.t('dialog.oneMoreNo'), 
+                        onClick: () => this._noBeerClick()
+                    },
+                ];
+            }
 
         default:
             if (this.props.customActionNameKey && this.props.customActionHandler) {
@@ -180,8 +259,7 @@ class Notification extends AbstractNotification<Props> {
                     label = { appearance }
                     secondaryColor = { secIconColor }
                     size = { iconSize } />
-            );
-
+            ); 
         default:
             return (
                 <EditorInfoIcon
@@ -190,6 +268,16 @@ class Notification extends AbstractNotification<Props> {
                     size = { iconSize } />
             );
         }
+    }
+
+    /**
+     * @private
+     * @returns {ReactElement}
+     */
+    _mapAppearance() {
+        return this.props.appearance === NOTIFICATION_TYPE.ASSET ? 
+            NOTIFICATION_TYPE.NORMAL : 
+            this.props.appearance
     }
 }
 
