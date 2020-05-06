@@ -55,8 +55,11 @@ export default class AbstractShotsWarning<P: Props>
  */
 export function _mapStateToProps(state: Object, ownProps: Props): Object {
     const wantsShotsParticipant = getWantsShotsParticipant(state);
-    if(!wantsShotsParticipant) return;
-    const displayName = getParticipantDisplayName(state, wantsShotsParticipant.id);
+    let displayName = ""; 
+    if(wantsShotsParticipant) {
+        displayName = getParticipantDisplayName(state, wantsShotsParticipant.id);
+    }
+    
 
     return {
         _someoneWantsShots: wantsShotsParticipant ? true : false,
