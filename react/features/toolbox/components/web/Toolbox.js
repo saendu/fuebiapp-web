@@ -89,6 +89,9 @@ import {
     ClosedCaptionButton
 } from '../../../subtitles';
 
+import { PARTICIPANT_SCHUEM_SOUND_ID } from '../../../base/participants/constants';
+import { playSound, registerSound, unregisterSound } from '../../../base/sounds';
+
 /**
  * The type of the React {@code Component} props of {@link Toolbox}.
  */
@@ -905,9 +908,12 @@ class Toolbox extends Component<Props, State> {
     _onClickNextRoundButton() {
         const { _localParticipantID, _localParticipant, _participants } = this.props;
         let beerCount = _localParticipant.beerCount;
-
-        // local update
+        
         if(!this.state.nextRoundButtonLocked) {
+            // local SOUND
+            this.props.dispatch(playSound(PARTICIPANT_SCHUEM_SOUND_ID));            
+            
+            // local update
             this.props.dispatch(participantUpdated({
                 id: _localParticipantID,
                 local: true,
@@ -915,28 +921,27 @@ class Toolbox extends Component<Props, State> {
                 beerCount: ++beerCount,
                 beerTimeStamp: Date.now(),
             }));
+
+            // remote participants
+            _participants.forEach(p => {
+                if(p.id !== _localParticipantID) {
+                    this.props.dispatch(participantUpdated({
+                        id: p.id,
+                        newRoundPending: true, 
+                    }));
+                }
+            });
+
+            this.setState({
+                nextRoundButtonLocked: true
+            });
+    
+            // disable for 5 seconds to not overload with notifications
+            setTimeout(() => this.setState({
+                nextRoundButtonLocked: false
+                })
+            , 5000);
         }
-
-        // remote participants
-        _participants.forEach(p => {
-            if(p.id !== _localParticipantID) {
-                this.props.dispatch(participantUpdated({
-                    id: p.id,
-                    newRoundPending: true, 
-                }));
-            }
-        })
-        
-        this.setState({
-            nextRoundButtonLocked: true
-        });
-
-        // disable for 5 seconds to not overload with notifications
-        setTimeout(() => this.setState({
-            nextRoundButtonLocked: false
-            })
-        , 5000);
-
         /*
         sendAnalytics(createRemoteVideoMenuButtonEvent(
             'poke.button',
