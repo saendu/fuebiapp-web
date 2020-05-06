@@ -7,4 +7,13 @@
         justify-content: space-between;
         margin-bottom: em(7, 14);
     }
+
+    &__description {
+        margin-left: 10px;
+    }
+
+    span.item-action {
+        min-width: 120px;
+        text-align: center;
+    }
 }

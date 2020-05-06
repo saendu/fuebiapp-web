@@ -484,6 +484,24 @@
         "unavailable": "Oops! The {{serviceName}} is currently unavailable. We're working on resolving the issue. Please try again later.",
         "unavailableTitle": "Recording unavailable"
     },
+    "releaseNotes": {
+        "plusone": {
+            "name": "Poke to drink",
+            "description": "Hover over the beer icon of a participant and click the beer+1 icon"
+        },
+        "nextround": {
+            "name": "New round",
+            "description": "Click on the white cheering beer icon to initiate a new round"
+        },
+        "shots": {
+            "name": "Shots round",
+            "description": "Click on the shots icon to show all others that you want shots"
+        },
+        "poke": {
+            "name": "Open new beer",
+            "description": "Click on the white beer icon to increase your own beer count"
+        }
+    },
     "sectionList": {
         "pullToRefresh": "Pull to refresh"
     },

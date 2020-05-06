@@ -530,6 +530,24 @@
         "unavailable": "Oops! The {{serviceName}} is currently unavailable. We're working on resolving the issue. Please try again later.",
         "unavailableTitle": "Recording unavailable"
     },
+    "releaseNotes": {
+        "plusone": {
+            "name": "Poke to drink",
+            "description": "Fahre über das Bier Icon eines Teilnehmers und drücke auf das Bier+1 Icon um den Teilnehmer aufzufordern noch ein Bier zu trinken"
+        },
+        "nextround": {
+            "name": "New round",
+            "description": "Klicke auf das weisse Bier Cheers Icon um eine neue Runde zu starten"
+        },
+        "shots": {
+            "name": "Shots round",
+            "description": "Klicke auf das Shots Icon um allen anzuzeigen, dass du Shots trinken willst"
+        },
+        "poke": {
+            "name": "Open new beer",
+            "description": "Klicke auf das weisse Bier Icon um dein eigener Bier Counter hochzuzählen"
+        }
+    },
     "sectionList": {
         "pullToRefresh": "Pull to refresh"
     },

@@ -2510,6 +2510,8 @@ export default {
         APP.UI.initConference();
 
         APP.keyboardshortcut.init();
+        APP.releaseNotes.init(); 
+        APP.releaseNotes.openDialog(); 
 
         APP.store.dispatch(conferenceJoined(room));
 

@@ -514,6 +514,24 @@
         "unavailable": "Oups! Le {{serviceName}} est actuellement indisponible. Nous travaillons sur la résolution du problème. Veuillez réessayer plus tard.",
         "unavailableTitle": "Enregistrement indisponible"
     },
+    "releaseNotes": {
+        "plusone": {
+            "name": "Poke to drink",
+            "description": "Hover over the beer icon of a participant and click the beer+1 icon"
+        },
+        "nextround": {
+            "name": "New round",
+            "description": "Click on the white cheering beer icon to initiate a new round"
+        },
+        "shots": {
+            "name": "Shots round",
+            "description": "Click on the shots icon to show all others that you want shots"
+        },
+        "poke": {
+            "name": "Open new beer",
+            "description": "Click on the white beer icon to increase your own beer count"
+        }
+    },
     "sectionList": {
         "pullToRefresh": "Tirer pour recharger"
     },

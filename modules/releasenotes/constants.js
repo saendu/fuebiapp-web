@@ -1,0 +1,2 @@
+export const APP_RELEASE_VERSION = 'v1.06';
+export const APP_RELEASE_VERSION_CACHE_KEY = `EnXsjg1yI0CtwfUMVYI4NA`;
