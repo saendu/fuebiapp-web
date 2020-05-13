@@ -464,6 +464,7 @@
         "newDeviceAction": "Verwenden",
         "wantsShots": "{{name}} will eine Runde Shots!",
         "newRound": "{{name}} startet eine neue Runde!",
+        "newRoundSelf": "Du starteste eine neue Runde, trinkst du auch eins mit?",
         "rejectedNewRound": "{{name}} will kein neues Bier...",
         "poke": "{{name}} will das du ein Bier nimmst!"
     },

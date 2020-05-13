@@ -89,7 +89,7 @@ import {
     ClosedCaptionButton
 } from '../../../subtitles';
 
-import { PARTICIPANT_SCHUEM_SOUND_ID } from '../../../base/participants/constants';
+import { PARTICIPANT_SCHUEM_SOUND_ID, PARTICIPANT_BEER_SOUND_ID } from '../../../base/participants/constants';
 import { playSound, registerSound, unregisterSound } from '../../../base/sounds';
 
 /**
@@ -895,11 +895,15 @@ class Toolbox extends Component<Props, State> {
         const { _localParticipantID, _localParticipant } = this.props;
         let beerCount = _localParticipant.beerCount;
 
+        // play local sound when clicking the button
+        this.props.dispatch(playSound(PARTICIPANT_BEER_SOUND_ID)); 
+
         this.props.dispatch(participantUpdated({
             id: _localParticipantID,
             local: true,
             beerCount: ++beerCount,
-            beerTimeStamp: Date.now()
+            beerTimeStamp: Date.now(),
+            soundId: PARTICIPANT_BEER_SOUND_ID
         }));
     }
 
@@ -918,7 +922,7 @@ class Toolbox extends Component<Props, State> {
                 id: _localParticipantID,
                 local: true,
                 newRound: Date.now(),
-                beerCount: ++beerCount,
+                //beerCount: ++beerCount,
                 beerTimeStamp: Date.now(),
             }));
 

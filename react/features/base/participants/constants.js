@@ -60,6 +60,12 @@ export const PARTICIPANT_LEFT_SOUND_ID = 'PARTICIPANT_LEFT_SOUND';
 export const PARTICIPANT_SCHUEM_SOUND_ID = 'PARTICIPANT_SCHUEM_SOUND';
 
 /**
+ * Schuuem
+ * @type {string}
+ */
+export const PARTICIPANT_BEER_SOUND_ID = 'PARTICIPANT_BEER_SOUND';
+
+/**
  * The set of possible XMPP MUC roles for conference participants.
  *
  * @enum {string}

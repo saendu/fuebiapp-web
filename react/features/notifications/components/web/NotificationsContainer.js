@@ -9,6 +9,7 @@ import {
     getParticipants,
     participantUpdated
 } from '../../../base/participants';
+import { playSound } from '../../../base/sounds';
 
 import AbstractNotificationsContainer, {
     _abstractMapStateToProps,
@@ -67,7 +68,14 @@ class NotificationsContainer extends AbstractNotificationsContainer<Props> {
         const { _notifications } = this.props;
 
         return _notifications.map(notification => {
-            const { props, uid } = notification;
+            const { props, uid, newlyAdded } = notification;
+            const soundId = notification.props.soundId
+            // if newly added play sound
+            if(newlyAdded && soundId) {
+                this.props.dispatch(playSound(soundId));
+                notification.newlyAdded = false; 
+            }
+            
 
             // The id attribute is necessary as {@code FlagGroup} looks for
             // either id or key to set a key on notifications, but accessing
@@ -77,7 +85,7 @@ class NotificationsContainer extends AbstractNotificationsContainer<Props> {
                     { ...props }
                     id = { uid }
                     key = { uid }
-                    uid = { uid } 
+                    uid = { uid }
                     localParticipantID = { this.props._localParticipantID }
                     localParticipant = { this.props._localParticipant }
                     dispatch = { this.props.dispatch }

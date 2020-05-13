@@ -57,7 +57,8 @@ ReducerRegistry.register('features/notifications',
                         component: action.component,
                         props: action.props,
                         timeout: action.timeout,
-                        uid: action.uid
+                        uid: action.uid,
+                        soundId: action.soundId
                     })
             };
         }
@@ -76,11 +77,15 @@ ReducerRegistry.register('features/notifications',
  * queue.
  */
 function _insertNotificationByPriority(notifications, notification) {
+    // TODO SF: make this more robust
     const newRoundAlreadyExists = notifications.filter(n => n.props.titleKey == "notify.newRound").length > 0;
-    if(newRoundAlreadyExists) return notifications; 
+    if(notification.props.titleKey === "notify.newRound" && newRoundAlreadyExists) return notifications; 
 
     const pokeAlreadyExists = notifications.filter(n => n.props.titleKey == "notify.poke").length > 0;
-    if(pokeAlreadyExists) return notifications; 
+    if(notification.props.titleKey === "notify.poke" && pokeAlreadyExists) return notifications;
+
+    // add newlyAdded to avoid sound loop
+    notification = {newlyAdded: true, ...notification};
 
     const newNotificationPriority
         = NOTIFICATION_TYPE_PRIORITIES[notification.props.appearance] || 0;

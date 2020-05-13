@@ -19,9 +19,6 @@ import AbstractNotification, {
     type Props
 } from '../AbstractNotification';
 
-import { PARTICIPANT_SCHUEM_SOUND_ID } from '../../../base/participants/constants';
-import { playSound } from '../../../base/sounds';
-
 declare var interfaceConfig: Object;
 
 /**
@@ -62,11 +59,6 @@ class Notification extends AbstractNotification<Props> {
             assetLink,
             noActions
         } = this.props;
-
-        if(titleKey === "notify.newRound") {
-            // local SOUND
-            this.props.dispatch(playSound(PARTICIPANT_SCHUEM_SOUND_ID));
-        }
 
         return (
             this.props.appearance === NOTIFICATION_TYPE.ASSET ?
