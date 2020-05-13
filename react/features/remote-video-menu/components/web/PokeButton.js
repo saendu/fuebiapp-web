@@ -5,7 +5,7 @@ import React from 'react';
 import { translate } from '../../../base/i18n';
 import { IconMicDisabled } from '../../../base/icons';
 import { connect } from '../../../base/redux';
-import { IconPoke, IconBeerWhite } from '../../../base/icons';
+import { IconBeerPlusOne } from '../../../base/icons';
 
 import AbstractPokeButton, {
     _mapStateToProps,
@@ -39,7 +39,7 @@ class PokeButton extends AbstractPokeButton {
             <RemoteVideoMenuButton
                 buttonText = {this.props.t('dialog.poke')}
                 displayClass = {pokeConfig.muteClassName}
-                icon = { IconBeerWhite }
+                icon = { IconBeerPlusOne }
                 id = { `pokelink_${participantID}` }
                 // eslint-disable-next-line react/jsx-handler-names
                 onClick = { !buttonLocked ? this._handleClick : null} />

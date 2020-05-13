@@ -7,6 +7,7 @@ import 'jQuery-Impromptu';
 import conference from './conference';
 import API from './modules/API';
 import keyboardshortcut from './modules/keyboardshortcut/keyboardshortcut';
+import releaseNotes from './modules/releasenotes/releaseNotes';
 import remoteControl from './modules/remotecontrol/RemoteControl';
 import translation from './modules/translation/translation';
 import UI from './modules/UI/UI';
@@ -32,6 +33,7 @@ window.APP = {
     },
 
     keyboardshortcut,
+    releaseNotes,
     remoteControl,
     translation,
     UI
