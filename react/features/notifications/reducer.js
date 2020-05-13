@@ -78,10 +78,12 @@ ReducerRegistry.register('features/notifications',
  */
 function _insertNotificationByPriority(notifications, notification) {
     // TODO SF: make this more robust
-    const newRoundAlreadyExists = notifications.filter(n => n.props.titleKey == "notify.newRound").length > 0;
-    if(notification.props.titleKey === "notify.newRound" && newRoundAlreadyExists) return notifications; 
-
+    const newRoundWaitingForAnswer = notifications.filter(n => n.props.titleKey == "notify.newRound").length > 0;
     const pokeAlreadyExists = notifications.filter(n => n.props.titleKey == "notify.poke").length > 0;
+    // no new notification to not overload browser
+    if(newRoundWaitingForAnswer || pokeAlreadyExists) return notifications; 
+
+    
     if(notification.props.titleKey === "notify.poke" && pokeAlreadyExists) return notifications;
 
     // add newlyAdded to avoid sound loop
