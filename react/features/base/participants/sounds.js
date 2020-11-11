@@ -11,3 +11,5 @@ export const PARTICIPANT_JOINED_FILE = 'joined.wav';
 export const PARTICIPANT_LEFT_FILE = 'left.wav';
 
 export const PARTICIPANT_SCHUEM_FILE = 'schuem.wav';
+
+export const PARTICIPANT_BEER_FILE = 'beer.wav';

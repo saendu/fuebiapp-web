@@ -93,7 +93,11 @@ export type Props = {
 
     localParticipantID: string,
 
-    localParticipant: Object
+    localParticipant: Object,
+
+    soundId: string,
+
+    newlyAdded: boolean
 
 
 };

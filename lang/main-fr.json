@@ -460,6 +460,7 @@
         "newDeviceAction": "Utiliser",
         "wantsShots": "{{name}} wants shots!",
         "newRound": "{{name}} starts a new round!",
+        "newRoundSelf": "You started a new round, do you drink one yourself?",
         "rejectedNewRound": "{{name}} rejected to open a new beer...",
         "poke": "{{name}} wants that you have a beer!"
     },

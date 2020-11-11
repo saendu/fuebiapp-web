@@ -36,7 +36,8 @@ import {
     LOCAL_PARTICIPANT_DEFAULT_ID,
     PARTICIPANT_JOINED_SOUND_ID,
     PARTICIPANT_LEFT_SOUND_ID,
-    PARTICIPANT_SCHUEM_SOUND_ID
+    PARTICIPANT_SCHUEM_SOUND_ID,
+    PARTICIPANT_BEER_SOUND_ID
 } from './constants';
 import {
     getFirstLoadableAvatarUrl,
@@ -45,7 +46,7 @@ import {
     getParticipantCount,
     getParticipantDisplayName
 } from './functions';
-import { PARTICIPANT_JOINED_FILE, PARTICIPANT_LEFT_FILE, PARTICIPANT_SCHUEM_FILE } from './sounds';
+import { PARTICIPANT_JOINED_FILE, PARTICIPANT_LEFT_FILE, PARTICIPANT_SCHUEM_FILE, PARTICIPANT_BEER_FILE } from './sounds';
 
 declare var APP: Object;
 
@@ -443,6 +444,15 @@ function _participantJoinedOrUpdated({ dispatch, getState }, next, action) {
                 && conference.setLocalParticipantProperty(
                     'newRound',
                     newRound);
+            
+            // local ask for a new beer
+            dispatch(showAssetNotification({
+                titleArguments: {
+                    name: ''
+                },
+                titleKey: 'notify.newRoundSelf',
+                assetLink: '../images/pouringBeer.gif'
+            }, NOTIFICATION_TIMEOUT));
         }
     }
 
@@ -600,7 +610,8 @@ function _newRound({ dispatch, getState }, conference, participantId, newValue) 
                 name: getParticipantDisplayName(getState, pid)
             },
             titleKey: 'notify.newRound',
-            assetLink: '../images/pouringBeer.gif'
+            assetLink: '../images/pouringBeer.gif',
+            soundId: PARTICIPANT_SCHUEM_SOUND_ID
         }, NOTIFICATION_TIMEOUT));
     }
 }
@@ -615,9 +626,11 @@ function _newRound({ dispatch, getState }, conference, participantId, newValue) 
  * @param {boolean} newValue - The new value of the raise hand status.
  * @returns {void}
  */
-function _beerCountUpdated({ dispatch, getState }, conference, participantId, newValue) {    
+function _beerCountUpdated({ dispatch, getState }, conference, participantId, newValue) {
     const beerCount = newValue;
     const pid = participantId || getLocalParticipant(getState()).id;
+    const participant: any = getParticipantById(getState(), participantId);
+    const isSilentUpdate = Math.round(beerCount) === Math.round(participant.beerCount); // ungly hack because of update
 
     dispatch(participantUpdated({
         conference,
@@ -626,19 +639,21 @@ function _beerCountUpdated({ dispatch, getState }, conference, participantId, ne
         newRoundPending: false // we change back the icon
     }));
 
-    // NOTIFY OTHERS
-    const participant: any = getParticipantById(getState(), participantId);
-    const timeNewBeerPushedLast = participant.beerTimeStamp ? (Date.now() - participant.beerTimeStamp)/1000 : null; 
+    if(!isSilentUpdate) {
+        // show notification & play sound
+        const timeNewBeerPushedLast = participant.beerTimeStamp ? (Date.now() - participant.beerTimeStamp)/1000 : null; 
 
-    if (beerCount >= 1 && (!timeNewBeerPushedLast || timeNewBeerPushedLast > 10)) { // this is necessery because of update hack +0.01
-        dispatch(showAssetNotification({
-            titleArguments: {
-                name: getParticipantDisplayName(getState, pid)
-            },
-            titleKey: 'notify.newBeer',
-            assetLink: '../images/cheers.gif',
-            noActions: true
-        }, 4000));
+        if (beerCount >= 1 && (!timeNewBeerPushedLast || timeNewBeerPushedLast > 10)) { // this is necessery because of update hack +0.01
+            dispatch(showAssetNotification({
+                titleArguments: {
+                    name: getParticipantDisplayName(getState, pid)
+                },
+                titleKey: 'notify.newBeer',
+                assetLink: '../images/openbeerlite.gif',
+                noActions: true,
+                soundId: PARTICIPANT_BEER_SOUND_ID
+            }, 4000));
+        }
     }
     
 }
@@ -671,7 +686,7 @@ function _rejectedNewRoundCount({ dispatch, getState }, conference, participantI
             name: getParticipantDisplayName(getState, pid)
         },
         titleKey: 'notify.rejectedNewRound',
-        assetLink: '../images/sad.gif',
+        assetLink: '../images/ohwell.gif',
         noActions: true
     }, 4000));
     
@@ -738,6 +753,7 @@ function _registerSounds({ dispatch }) {
         registerSound(PARTICIPANT_JOINED_SOUND_ID, PARTICIPANT_JOINED_FILE));
     dispatch(registerSound(PARTICIPANT_LEFT_SOUND_ID, PARTICIPANT_LEFT_FILE));
     dispatch(registerSound(PARTICIPANT_SCHUEM_SOUND_ID, PARTICIPANT_SCHUEM_FILE));
+    dispatch(registerSound(PARTICIPANT_BEER_SOUND_ID, PARTICIPANT_BEER_FILE));
     
 }
 
@@ -752,4 +768,5 @@ function _unregisterSounds({ dispatch }) {
     dispatch(unregisterSound(PARTICIPANT_JOINED_SOUND_ID));
     dispatch(unregisterSound(PARTICIPANT_LEFT_SOUND_ID));
     dispatch(unregisterSound(PARTICIPANT_SCHUEM_SOUND_ID));
+    dispatch(unregisterSound(PARTICIPANT_BEER_SOUND_ID));
 }
