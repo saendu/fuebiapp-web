@@ -786,7 +786,7 @@
         "calendar": "Kalender",
         "connectCalendarButton": "Kalender verbinden",
         "connectCalendarText": "Verbinden Sie Ihren Kalender, um all Ihre Meetings in {{app}} anzuzeigen. Fügen Sie zudem {{provider}}-Meetings in Ihren Kalender ein und starten Sie sie mit nur einem Klick.",
-        "enterRoomTitle": "Neues Meeting starten",
+        "enterRoomTitle": "Starte ein neues Fübi",
         "roomNameAllowedChars": "Der Meeting-Name sollte keines der folgenden Zeichen enthalten: ?, &, :, ', \", %, #.",
         "go": "Los",
         "goSmall": "Los",
@@ -801,7 +801,7 @@
         "roomnameHint": "Name oder URL der Konferenz, der Sie beitreten möchten. Sie können einen Namen erfinden, er muss nur den anderen Teilnehmern übermittelt werden, damit diese der gleichen Konferenz beitreten.",
         "sendFeedback": "Feedback senden",
         "terms": "AGB",
-        "title": "Trinke mit Fuebi App ein Remote Bier mit deinen Freunden"
+        "title": "Fang wider mit Fübis ah!"
         },
     "lonelyMeetingExperience": {
         "button": "Andere einladen",

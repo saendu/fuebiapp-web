@@ -187,18 +187,6 @@ class WelcomePage extends AbstractWelcomePage {
                         <h1 className = 'header-text-title'>
                             { t('welcomepage.title') }
                         </h1>
-                        <p className = 'header-text-description'>
-                            { t('welcomepage.appDescription',
-                                { app: APP_NAME }) }
-                        </p>
-                    </div>
-                    <div className='header-features'>
-                        <h3>Features in progress</h3>
-                        <p>
-                        <ul>
-                            <li>Jingles</li>
-                        </ul>
-                        </p>
                     </div>
                     <div id = 'enter_room'>
                         <div className = 'enter-room-input-container'>
@@ -212,7 +200,7 @@ class WelcomePage extends AbstractWelcomePage {
                                     id = 'enter_room_field'
                                     onChange = { this._onRoomChange }
                                     pattern = { ROOM_NAME_VALIDATE_PATTERN_STR }
-                                    placeholder = { '<Room Name>' }
+                                    placeholder = { 'WIE HEISST DEIN FÜBI?' }
                                     ref = { this._setRoomInputRef }
                                     title = { t('welcomepage.roomNameAllowedChars') }
                                     type = 'text'

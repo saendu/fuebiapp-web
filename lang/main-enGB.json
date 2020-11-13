@@ -727,7 +727,7 @@
         "calendar": "Calendar",
         "connectCalendarButton": "Connect your calendar",
         "connectCalendarText": "",
-        "enterRoomTitle": "Start a new meeting",
+        "enterRoomTitle": "Start a new afterwork beer",
         "go": "GO",
         "join": "JOIN",
         "info": "Info",
@@ -740,6 +740,6 @@
         "roomnameHint": "Enter the name or URL of the room you want to join. You may make a name up, just let the people you are meeting know it so that they enter the same name.",
         "sendFeedback": "Send feedback",
         "terms": "Terms",
-        "title": "Have a remote beer with your friends with Fuebi App"
+        "title": "Start with afterwork beers again!"
     }
 }
