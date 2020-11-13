@@ -802,7 +802,7 @@
         "calendar": "Calendar",
         "connectCalendarButton": "Connect your calendar",
         "connectCalendarText": "Connect your calendar to view all your meetings in {{app}}. Plus, add {{provider}} meetings to your calendar and start them with one click.",
-        "enterRoomTitle": "Start a new meeting",
+        "enterRoomTitle": "Starte ein neues Fübi",
         "getHelp": "Get help",
         "roomNameAllowedChars": "Meeting name should not contain any of these characters: ?, &, :, ', \", %, #.",
         "go": "GO",
@@ -818,7 +818,7 @@
         "roomnameHint": "Enter the name or URL of the room you want to join. You may make a name up, just let the people you are meeting know it so that they enter the same name.",
         "sendFeedback": "Send feedback",
         "terms": "Terms",
-        "title": "Have a remote beer with your friends with Fuebi App"
+        "title": "Fang wider mit Fübis ah!"
     },
     "lonelyMeetingExperience": {
         "button": "Invite others",
