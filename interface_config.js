@@ -71,6 +71,9 @@ var interfaceConfig = {
         {
             name: 'rgs', url: './images/meister.jpg', size: 'auto'
         },
+        {
+            name: 'innospace', url: './images/innospace.jpg', size: 'cover'
+        }
     ],
 
     SETTINGS_SECTIONS: [ 'devices', 'language', 'moderator', 'profile', 'calendar' ],

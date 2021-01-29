@@ -35,17 +35,18 @@ class ReleaseNotesDialog extends Component<Props> {
      * @returns {ReactElement}
      */
     render() {
+        
         const releaseNotes = Array.from(this.props.releaseNotes)
             .map((i, index) => this._renderItem(index, ...i));
-        
+        setTimeout(() => this._onClickCancel(), 8000)
         return (
-            <div>
+            <div onClick={() => this._onClickCancel()}>
                 <Dialog
                     cancelKey = { 'dialog.close' }
                     submitDisabled = { true }
                     titleKey = {`Release notes ${APP_RELEASE_VERSION}`}
                     width = 'small'
-                    onCancel = { this._onClickCancel.bind(this) }
+                    onCancel = {() => this._onClickCancel() }
                  >
                     <div
                         id = 'keyboard-shortcuts'>
@@ -56,7 +57,6 @@ class ReleaseNotesDialog extends Component<Props> {
                         </ul>
                     </div>
                 </Dialog>
-                
             </div>
         );
     }
