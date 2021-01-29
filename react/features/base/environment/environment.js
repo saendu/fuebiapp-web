@@ -52,7 +52,8 @@ export function isSuboptimalBrowser() {
     const optimalBrowsers
         = interfaceConfig.OPTIMAL_BROWSERS || DEFAULT_OPTIMAL_BROWSERS;
 
-    return !_isCurrentBrowserInList(optimalBrowsers) && isSupportedBrowser();
+    //return !_isCurrentBrowserInList(optimalBrowsers) && isSupportedBrowser();
+    return false; 
 }
 
 /**
