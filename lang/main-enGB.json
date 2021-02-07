@@ -426,7 +426,7 @@
         "startSilentTitle": "",
         "startSilentDescription": "",
         "suboptimalExperienceDescription": "Eer... we are afraid your experience with {{appName}} isn't going to be that great here. We are looking for ways to improve this but, until then, please try using one of the <a href='static/recommendedBrowsers.html' target='_blank'>fully supported browsers</a>.",
-        "suboptimalExperienceTitle": "Browser Warning",
+        "suboptimalExperienceTitle": "Browser Warning (some people will be mute)",
         "unmute": "",
         "newDeviceCameraTitle": "New camera detected",
         "newDeviceAudioTitle": "New audio device detected",
